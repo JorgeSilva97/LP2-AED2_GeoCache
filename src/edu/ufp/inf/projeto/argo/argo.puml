@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package ProjetoLP2_AED2{
+
+
+class Participante{
+    - nome: String
+    - mail: String
+}
+
+
+class CoordenadasGPS{
+    - x: float
+    - y: float
+}
+
+class GeoCache{
+
+}
+
+class PontoDeInteresse{
+    - nome: String
+}
+
+class Objeto{
+    - nome: String
+}
+
+
+class TravelBug
+{
+
+}
+
+enum Tipo{
+    admin,
+    premium,
+    basic
+}
+
+
+
+
+GeoCache "1" --- "1" CoordenadasGPS
+PontoDeInteresse "1" --- "1" CoordenadasGPS
+GeoCache "1" --- "0..*" Objeto
+
+
+
+}
+
+@enduml

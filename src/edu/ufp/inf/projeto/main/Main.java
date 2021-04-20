@@ -1,10 +1,9 @@
-package edu.ufp.inf.aed2.main;
+package edu.ufp.inf.projeto.main;
 
 import edu.princeton.cs.algs4.*;
 
 import java.awt.*;
 import java.util.Arrays;
-import edu.ufp.inf.aed2.main.*;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package edu.ufp.inf.aed2.project;
+package edu.ufp.inf.projeto.models;
 
 public enum TipoGeoCacheEnum
 {
