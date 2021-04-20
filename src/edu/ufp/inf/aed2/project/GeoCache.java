@@ -9,8 +9,8 @@ public class GeoCache {
     private int id;
     private CoordenadasGPS coordenadas;
     private int dificuldade;
+    private TipoGeoCacheEnum tipoGeoCache;
     private ArrayList<Objeto> objetos = new ArrayList<>();
-
     private ArrayList<String> logs = new ArrayList<>();
 
 

@@ -7,7 +7,9 @@ public class AdminParticipante extends PremiumUser {
 
     private ArrayList<Participante> participantes = new ArrayList<>();
 
-    public AdminParticipante(String id, String nome, String mail) {
+    public AdminParticipante(String id, String nome, String mail)
+    {
+
         super(id, nome, mail);
     }
 
