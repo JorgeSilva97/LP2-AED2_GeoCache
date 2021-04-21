@@ -4,7 +4,8 @@ import edu.ufp.inf.projeto.models.GeoCache;
 
 import java.util.ArrayList;
 
-public class PremiumParticipante extends Participante {
+public class PremiumParticipante extends Participante
+{
 
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
