@@ -1,8 +1,11 @@
 package edu.ufp.inf.projeto.models.utilizadores;
 
+import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.GeoCache;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PremiumParticipante extends Participante
 {
@@ -12,6 +15,8 @@ public class PremiumParticipante extends Participante
 
     public PremiumParticipante(String id, String nome, String mail) {
         super(id, nome, mail);
+        Date d = new Date();
+        addLog("Adicionado ParticipantePremium: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     /**
@@ -30,6 +35,8 @@ public class PremiumParticipante extends Participante
         }
         geoCaches.add(gc);
         System.out.println("GeoCache adicioanado com sucesso!");
+        Date d = new Date();
+        addLog("Adicionada GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     /**
@@ -44,11 +51,16 @@ public class PremiumParticipante extends Participante
             {
                 geoCaches.remove(gc);
                 System.out.println("GeoCache removido com sucesso!");
+                Date d = new Date();
+                addLog("Removida GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
+                //System.out.println(new Timestamp(d.getTime()).toString());
                 return;
             }
         }
         System.out.println("GeoCache impossível de remover!");
     }
+
+
 
 
 

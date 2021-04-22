@@ -40,6 +40,8 @@ public class GeoCache
         }
         objetos.add(o);
         System.out.println("Objeto adicionado com sucesso!");
+        Date d = new Date();
+        addLog("Adicionada Objeto: "+ o.getNome() +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     /**
@@ -55,7 +57,7 @@ public class GeoCache
                 objetos.remove(o);
                 System.out.println("Objeto removido com sucesso!");
                 Date d = new Date();
-                addLog("Removido GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
+                addLog("Removido Objeto: "+ o.getNome()+ "com sucesso!", new Timestamp(d.getTime()).toString());
                 //System.out.println(new Timestamp(d.getTime()).toString());
                 return;
             }
@@ -66,6 +68,7 @@ public class GeoCache
     /**
      *
      * @param l
+     * @param dateTime
      */
     public void addLog (String l, String dateTime)
     {
@@ -90,6 +93,11 @@ public class GeoCache
         gc.removeObjeto(o);
         gc.getLogs();
     }
+
+
+
+
+
 
     public int getId() {
         return id;

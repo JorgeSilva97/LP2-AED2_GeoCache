@@ -2,7 +2,9 @@ package edu.ufp.inf.projeto.models.utilizadores;
 
 import edu.ufp.inf.projeto.models.GeoCache;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AdminParticipante extends PremiumParticipante {
 
@@ -12,6 +14,9 @@ public class AdminParticipante extends PremiumParticipante {
     public AdminParticipante(String id, String nome, String mail)
     {
         super(id, nome, mail);
+        Date d = new Date();
+        addLog("Adicionado AdminParticipante: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
+
     }
 
     public void addParticipante(Participante p)
@@ -26,6 +31,8 @@ public class AdminParticipante extends PremiumParticipante {
         }
         participantes.add(p);
         System.out.println("Participante adicioanado com sucesso!");
+        Date d = new Date();
+        addLog("Adicionado Participante: "+ p.getNome() +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     public void removeParticipante(Participante p)
@@ -36,6 +43,8 @@ public class AdminParticipante extends PremiumParticipante {
             {
                 participantes.remove(p);
                 System.out.println("Participante removido com sucesso!");
+                Date d = new Date();
+                addLog("Removido Participante: "+ p.getNome() +" com sucesso!", new Timestamp(d.getTime()).toString());
                 return;
             }
         }
