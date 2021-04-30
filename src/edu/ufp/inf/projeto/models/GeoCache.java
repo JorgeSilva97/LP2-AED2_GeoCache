@@ -1,7 +1,7 @@
 package edu.ufp.inf.projeto.models;
 
 import edu.princeton.cs.algs4.ST;
-
+import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +13,11 @@ public class GeoCache
     private PontoInteresse pontoInteresse;
     private int dificuldade;
     private TipoGeoCacheEnum tipoGeoCache;
+    private PremiumParticipante premiumParticipante;
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
+
+
 
     public GeoCache(int id, PontoInteresse pontoInteresse, int dificuldade, TipoGeoCacheEnum tipoGeoCache)
     {
@@ -25,6 +28,7 @@ public class GeoCache
     }
 
     /**
+     *
      * Adiciona Objeto à ArrayList
      * @param o objeto a adicionar
      */
@@ -95,9 +99,26 @@ public class GeoCache
     }
 
 
+    @Override
+    public String toString()
+    {
+        return "GeoCache{" +
+                "id=" + id +
+                ", pontoInteresse=" + pontoInteresse +
+                ", dificuldade=" + dificuldade +
+                ", tipoGeoCache=" + tipoGeoCache +
+                //for objetos
+                ", objetos=" + objetos +
+                '}';
+    }
 
+    public PremiumParticipante getPremiumParticipante() {
+        return premiumParticipante;
+    }
 
-
+    public void setPremiumParticipante(PremiumParticipante premiumParticipante) {
+        this.premiumParticipante = premiumParticipante;
+    }
 
     public int getId() {
         return id;

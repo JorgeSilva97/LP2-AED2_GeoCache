@@ -6,16 +6,13 @@ public class CoordenadasGPS {
 
     private double x;
     private double y;
-    private Participante participante;
+    private String regiao;
     private PontoInteresse pontoInteresse;
-    private GeoCache geoCache;
 
-    public CoordenadasGPS(double x, double y, Participante participante, PontoInteresse pontoInteresse, GeoCache geoCache) {
+    public CoordenadasGPS(double x, double y, PontoInteresse pontoInteresse) {
         this.x = x;
         this.y = y;
-        this.participante = participante;
         this.pontoInteresse = pontoInteresse;
-        this.geoCache = geoCache;
     }
 
 
@@ -35,14 +32,6 @@ public class CoordenadasGPS {
         this.y = y;
     }
 
-    public Participante getParticipante() {
-        return participante;
-    }
-
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
-    }
-
     public PontoInteresse getPontoInteresse() {
         return pontoInteresse;
     }
@@ -51,11 +40,4 @@ public class CoordenadasGPS {
         this.pontoInteresse = pontoInteresse;
     }
 
-    public GeoCache getGeoCache() {
-        return geoCache;
-    }
-
-    public void setGeoCache(GeoCache geoCache) {
-        this.geoCache = geoCache;
-    }
 }

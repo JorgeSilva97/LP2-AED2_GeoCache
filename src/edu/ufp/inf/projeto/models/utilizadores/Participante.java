@@ -49,7 +49,14 @@ public class Participante implements Serializable
         System.out.println("Log adicionado com sucesso!");
     }
 
-
+    @Override
+    public String toString() {
+        return "Participante{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 
     public String getId() {
         return id;

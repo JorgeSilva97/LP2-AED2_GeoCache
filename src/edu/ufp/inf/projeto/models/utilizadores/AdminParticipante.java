@@ -1,12 +1,13 @@
 package edu.ufp.inf.projeto.models.utilizadores;
 
-import edu.ufp.inf.projeto.models.GeoCache;
+
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AdminParticipante extends PremiumParticipante {
+public class AdminParticipante extends PremiumParticipante
+{
 
 
     private ArrayList<Participante> participantes = new ArrayList<>();

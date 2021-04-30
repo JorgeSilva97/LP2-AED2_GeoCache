@@ -1,10 +1,15 @@
 package edu.ufp.inf.projeto.main_project;
 
 
-import edu.princeton.cs.algs4.ST;
-import edu.ufp.inf.projeto.models.PontoInteresse;
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.ufp.inf.projeto.models.GeoCache;
+import edu.ufp.inf.projeto.models.Objeto;
+import edu.ufp.inf.projeto.models.utilizadores.Participante;
 
-public class Run {
+import java.util.ArrayList;
+
+public class Run
+{
 
     /**
      * Main function
@@ -12,11 +17,33 @@ public class Run {
      */
     public static void main(String[] args) {
 
-        //ST<, > pontosInteresseST = new ST<>();
-
         System.out.println("\t\tMAIN");
 
+        RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
+        RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+
+
+
+
+
+
+
     }
+
+    public void visitaGeoCache (GeoCache geoCache, Participante participante,
+                                   ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
+    {
+
+
+
+    }
+
+
+
+
+
+
+
 
 
 }
