@@ -1,6 +1,7 @@
 package edu.ufp.inf.projeto.models.utilizadores;
 
 import edu.ufp.inf.projeto.models.GeoCache;
+import edu.ufp.inf.projeto.models.Objeto;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -49,6 +50,19 @@ public class AdminParticipante extends PremiumParticipante {
             }
         }
         System.out.println("Participante impossivel de remover!");
+    }
+
+    public void editParticipante(String nome, String mail, Participante p){
+        for(Participante p_aux : this.participantes){
+            if(p_aux.getNome().equals(p.getNome()) && p_aux.getMail().equals(p.getMail())){
+                p_aux.setNome(nome);
+                p_aux.setNome(mail);
+                System.out.println("Operação efetuada com sucesso!");
+                Date d = new Date();
+                addLog("Paricipante Editado; "+ p_aux.getNome()+"com sucesso!", new Timestamp(d.getTime()).toString());
+                return;
+            }
+        }
     }
 
 

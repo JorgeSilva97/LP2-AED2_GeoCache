@@ -2,6 +2,8 @@ package edu.ufp.inf.projeto.models.utilizadores;
 
 import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.GeoCache;
+import edu.ufp.inf.projeto.models.PontoInteresse;
+import edu.ufp.inf.projeto.models.TipoGeoCacheEnum;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -59,6 +61,21 @@ public class PremiumParticipante extends Participante
         }
         System.out.println("GeoCache impossível de remover!");
     }
+
+
+    public void editGeoCache(PontoInteresse pontoInteresse, int dificuldade, TipoGeoCacheEnum tipoGeoCacheEnum, GeoCache geoCache){
+        for(GeoCache geo : this.geoCaches){
+            if(geo.getPontoInteresse().equals(geoCache.getPontoInteresse()) && geo.getDificuldade() == geoCache.getDificuldade() && geo.getPremiumParticipante().equals(geoCache.getPremiumParticipante()) && geo.getTipoGeoCache().equals(geoCache.getTipoGeoCache())){
+                geo.setPontoInteresse(pontoInteresse);
+                geo.setDificuldade(dificuldade);
+                geo.setTipoGeoCache(tipoGeoCacheEnum);
+                System.out.println("Edicao efetuada com sucesso!");
+                Date d = new Date();
+                addLog("GeoCache Editada com sucesso!", new Timestamp(d.getTime()).toString());
+            }
+        }
+    }
+
 
 
 
