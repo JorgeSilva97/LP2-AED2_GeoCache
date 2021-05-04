@@ -69,6 +69,18 @@ public class GeoCache
         System.out.println("Objeto impossível de remover!");
     }
 
+    public void editObjeto(String nome, Objeto o){
+        for(Objeto obj : this.objetos){
+           if(obj.getNome().equals(o.getNome())){
+                obj.setNome(nome);
+               System.out.println("Operação efetuada com sucesso!");
+               Date d = new Date();
+               addLog("Editado Objeto; "+ obj.getNome()+"com sucesso!", new Timestamp(d.getTime()).toString());
+               return;
+           }
+        }
+    }
+
     /**
      *
      * @param l
@@ -94,6 +106,7 @@ public class GeoCache
         Objeto o = new Objeto("telemovel");
         GeoCache gc = new GeoCache(1, new PontoInteresse(), 3, TipoGeoCacheEnum.BASIC);
         gc.addObjeto(o);
+        gc.editObjeto(o.getNome(),o);
         gc.removeObjeto(o);
         gc.getLogs();
     }
