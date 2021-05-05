@@ -3,6 +3,7 @@ package edu.ufp.inf.projeto.main_project;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.*;
 import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
@@ -21,8 +22,16 @@ public class Run
 
         System.out.println("\t\tMAIN");
 
+        ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
+        ArrayList<Objeto> objetos = new ArrayList<>();
         RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
         RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+
+        loadFromFile("/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt",
+                participantes, geoCaches, pontosInteresse, objetos);
+
+        for (Objeto o : objetos)
+            System.out.println(o.getNome());
 
 
 
@@ -32,7 +41,9 @@ public class Run
      * funcao que faz lê do ficheiro input toda a informação dele
      * @param path
      */
-    public static void loadFromFile(String path)
+    public static void loadFromFile(String path, RedBlackBST<String, Participante> participantes,
+                                    RedBlackBST<String, GeoCache> geoCachess, ArrayList<PontoInteresse> pontosInteresse,
+                                    ArrayList<Objeto> objetos)
     {
         In in = new In(path);
         String nParticipantes = in.readLine();
@@ -46,22 +57,25 @@ public class Run
             {
                 case "premium":
                     PremiumParticipante premiumParticipante = new PremiumParticipante(id, nome);
+                    participantes.put(premiumParticipante.getNome(), premiumParticipante);
                     break;
                 case "basic":
                     Participante participante = new Participante(id, nome);
+                    participantes.put(participante.getNome(), participante);
                     break;
                 case "admin":
                     AdminParticipante adminParticipante = new AdminParticipante(id, nome);
+                    participantes.put(adminParticipante.getNome(), adminParticipante);
                     break;
             }
         }
         String nRegioes = in.readLine();
-        for(int i = 0; i < Integer.parseInt(nRegioes); i++)
+        for(int z = 0; z < Integer.parseInt(nRegioes); z++)
         {
             String[] temRegioes = in.readLine().split(",");
             String nomeRegiao =temRegioes[0];
-            String numeroGeoCaches = temRegioes[1];
-            for (int j = 0; j < Integer.parseInt(numeroGeoCaches); j++)
+            int numeroGeoCaches = Integer.parseInt(temRegioes[1]);
+            for (int j = 0; j < numeroGeoCaches; j++)
             {
                 String[] geoCaches = in.readLine().split(",");
                 String nomeG = geoCaches[0];
@@ -84,17 +98,51 @@ public class Run
                     case "basic":
                         GeoCache geoCache = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.BASIC);
                         pontoInteresse.setGeoCache(geoCache);
+                        pontosInteresse.add(pontoInteresse);
+                        geoCachess.put(geoCache.getPontoInteresse().getNome(), geoCache);
                         break;
                     case "premium":
                         GeoCache geoCachePremium = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.PREMIUM);
                         pontoInteresse.setGeoCache(geoCachePremium);
+                        pontosInteresse.add(pontoInteresse);
+                        geoCachess.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
                         break;
                 }
 
             }
         }
-
-
+        String numeroTravelBugs = in.readLine();
+        for (int y = 0; y < Integer.parseInt(numeroTravelBugs); y++)
+        {
+            String[] travelBugs = in.readLine().split(",");
+            String nomeTravel = travelBugs[0];
+            String nomeParticipante = travelBugs[1];
+            String nomeGeoInicio = travelBugs[2];
+            String nomeGeoFim = travelBugs[3];
+            for (String p : participantes.keys())
+            {
+                Participante ppp = participantes.get(p);
+                if (ppp.getNome().compareTo(nomeParticipante)==0)
+                {
+                    for (String inicio : geoCachess.keys())
+                    {
+                        GeoCache gcc = geoCachess.get(inicio);
+                        if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoInicio)==0)
+                        {
+                            for (String fim : geoCachess.keys())
+                            {
+                                GeoCache gccs = geoCachess.get(fim);
+                                if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoFim)==0)
+                                {
+                                    TravelBug travelBug = new TravelBug(nomeTravel, gcc, gccs);
+                                    objetos.add(travelBug);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void visitaGeoCache (GeoCache geoCache, Participante participante,

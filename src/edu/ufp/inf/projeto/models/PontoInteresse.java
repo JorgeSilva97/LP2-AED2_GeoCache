@@ -60,4 +60,12 @@ public class PontoInteresse
     public void setGeoCache(GeoCache geoCache) {
         this.geoCache = geoCache;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
