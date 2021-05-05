@@ -94,6 +94,7 @@ public class Run
             }
         }
 
+
     }
 
     public void visitaGeoCache (GeoCache geoCache, Participante participante,
