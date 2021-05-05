@@ -15,9 +15,9 @@ public class PremiumParticipante extends Participante
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
 
-    public PremiumParticipante(String id, String nome, String mail)
+    public PremiumParticipante(int id, String nome)
     {
-        super(id, nome, mail);
+        super(id, nome);
         Date d = new Date();
         addLog("Adicionado ParticipantePremium: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
@@ -63,11 +63,12 @@ public class PremiumParticipante extends Participante
 
     /**
      * Edita GeoCache ao ArrayList
-     * @param pontoInteresse, novo ponto de interesse
-     * @param dificuldade, nova dificuldade
-     * @param tipoGeoCacheEnum, novo tipo de GeoCache
-     * @param geoCache, geoCache a ser editada
+     //* @param pontoInteresse, novo ponto de interesse
+     //* @param dificuldade, nova dificuldade
+     //* @param tipoGeoCacheEnum, novo tipo de GeoCache
+     //* @param geoCache, geoCache a ser editada
      */
+    /*
     public void editGeoCache(PontoInteresse pontoInteresse, int dificuldade, TipoGeoCacheEnum tipoGeoCacheEnum, GeoCache geoCache){
         for(GeoCache geo : this.geoCaches){
             if(geo.getPontoInteresse().equals(geoCache.getPontoInteresse()) && geo.getDificuldade() == geoCache.getDificuldade() && geo.getPremiumParticipante().equals(geoCache.getPremiumParticipante()) && geo.getTipoGeoCache().equals(geoCache.getTipoGeoCache())){
@@ -80,8 +81,19 @@ public class PremiumParticipante extends Participante
             }
         }
     }
+     */
 
 
+    public void listGeoCache(){
+        for(GeoCache gc : this.geoCaches){
+            System.out.println(gc.getPontoInteresse().getNome());
+        }
+    }
+
+
+    public static void main(String[] args) {
+        //GeoCache gc = new GeoCache()
+    }
 
 
 

@@ -16,11 +16,10 @@ public class GeoCache
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
-    public GeoCache(int id, PontoInteresse pontoInteresse, int dificuldade, TipoGeoCacheEnum tipoGeoCache)
+    public GeoCache(int id, PontoInteresse pontoInteresse, TipoGeoCacheEnum tipoGeoCache)
     {
         this.id = id;
         this.pontoInteresse = pontoInteresse;
-        this.dificuldade = dificuldade;
         this.tipoGeoCache = tipoGeoCache;
     }
 
@@ -105,7 +104,7 @@ public class GeoCache
     public static void main(String[] args)
     {
         Objeto o = new Objeto("telemovel");
-        GeoCache gc = new GeoCache(1, new PontoInteresse(), 3, TipoGeoCacheEnum.BASIC);
+        GeoCache gc = new GeoCache(1, new PontoInteresse(), TipoGeoCacheEnum.BASIC);
         gc.addObjeto(o);
         gc.editObjeto(o.getNome(),o);
         gc.removeObjeto(o);

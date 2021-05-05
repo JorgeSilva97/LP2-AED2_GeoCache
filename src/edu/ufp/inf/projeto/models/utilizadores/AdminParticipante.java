@@ -12,9 +12,9 @@ public class AdminParticipante extends PremiumParticipante {
 
     private ArrayList<Participante> participantes = new ArrayList<>();
 
-    public AdminParticipante(String id, String nome, String mail)
+    public AdminParticipante(int id, String nome)
     {
-        super(id, nome, mail);
+        super(id, nome);
         Date d = new Date();
         addLog("Adicionado AdminParticipante: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
 
@@ -52,17 +52,22 @@ public class AdminParticipante extends PremiumParticipante {
         System.out.println("Participante impossivel de remover!");
     }
 
-    public void editParticipante(String nome, String mail, Participante p){
+    public void editParticipante(String nome, Participante p){
         for(Participante p_aux : this.participantes){
-            if(p_aux.getNome().equals(p.getNome()) && p_aux.getMail().equals(p.getMail())){
+            if(p_aux.getNome().equals(p.getNome())){
                 p_aux.setNome(nome);
-                p_aux.setNome(mail);
                 System.out.println("Operação efetuada com sucesso!");
                 Date d = new Date();
                 addLog("Paricipante Editado; "+ p_aux.getNome()+"com sucesso!", new Timestamp(d.getTime()).toString());
                 return;
             }
         }
+    }
+
+    public void listParticipante(){
+        for(Participante pi : this.participantes){
+            System.out.println(pi.getNome());
+            }
     }
 
 
@@ -74,6 +79,33 @@ public class AdminParticipante extends PremiumParticipante {
 
     public void setParticipantes(ArrayList<Participante> participantes) {
         this.participantes = participantes;
+    }
+
+
+    public static void main(String[] args) {
+        Participante joaoSilva = new Participante(1,"Joao Silva");
+        Participante franciscoCunha = new Participante(2,"Francisco Cunha");
+        Participante vascoCardozo = new Participante(3,"Vasco Cardozo");
+        Participante jorgeSilva = new Participante(1,"Jorge Silva");
+
+        AdminParticipante admin = new AdminParticipante(1,"Rui");
+        admin.addParticipante(joaoSilva);
+        admin.addParticipante(franciscoCunha);
+        admin.addParticipante(vascoCardozo);
+        admin.addParticipante(jorgeSilva);
+
+        admin.listParticipante();
+
+        //System.out.println("------depois de removido-----------\n");
+
+        //admin.removeParticipante(vascoCardozo);
+        //admin.listParticipante();
+
+        System.out.println("------depois de editado-----------\n");
+
+        admin.editParticipante("Jose Carlos",franciscoCunha);
+        admin.listParticipante();
+
     }
 
 }

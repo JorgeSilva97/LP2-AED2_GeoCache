@@ -2,8 +2,10 @@ package edu.ufp.inf.projeto.models;
 
 public class PontoInteresse
 {
+    private double x;
+    private double y;
+    private String Regiao;
     private String nome;
-    private CoordenadasGPS coordenadasGPS;
     private GeoCache geoCache;
 
     /*public PontoInteresse(String nome, CoordenadasGPS coordenadasGPS) {
@@ -19,11 +21,35 @@ public class PontoInteresse
         this.nome = nome;
     }
 
-    public CoordenadasGPS getCoordenadasGPS() {
-        return coordenadasGPS;
+    public double getX() {
+        return x;
     }
 
-    public void setCoordenadasGPS(CoordenadasGPS coordenadasGPS) {
-        this.coordenadasGPS = coordenadasGPS;
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public String getRegiao() {
+        return Regiao;
+    }
+
+    public void setRegiao(String regiao) {
+        Regiao = regiao;
+    }
+
+    public GeoCache getGeoCache() {
+        return geoCache;
+    }
+
+    public void setGeoCache(GeoCache geoCache) {
+        this.geoCache = geoCache;
     }
 }
