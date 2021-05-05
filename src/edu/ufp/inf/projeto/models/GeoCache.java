@@ -1,10 +1,12 @@
 package edu.ufp.inf.projeto.models;
 
 import edu.princeton.cs.algs4.ST;
+import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class GeoCache
 {
@@ -13,7 +15,8 @@ public class GeoCache
     private PontoInteresse pontoInteresse;
     private int dificuldade;
     private TipoGeoCacheEnum tipoGeoCache;
-    private PremiumParticipante premiumParticipante;
+    private PremiumParticipante criadorPremiumParticipante;
+    private ArrayList<Participante> visitantes = new ArrayList<>();
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
@@ -25,6 +28,8 @@ public class GeoCache
         this.pontoInteresse = pontoInteresse;
         this.dificuldade = dificuldade;
         this.tipoGeoCache = tipoGeoCache;
+        Date d = new Date();
+        addLog("Adicionado GeoCache: com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     /**
@@ -69,9 +74,12 @@ public class GeoCache
         System.out.println("Objeto impossível de remover!");
     }
 
-    public void editObjeto(String nome, Objeto o){
-        for(Objeto obj : this.objetos){
-           if(obj.getNome().equals(o.getNome())){
+    public void editObjeto(String nome, Objeto o)
+    {
+        for(Objeto obj : this.objetos)
+        {
+           if(obj.getNome().equals(o.getNome()))
+           {
                 obj.setNome(nome);
                System.out.println("Operação efetuada com sucesso!");
                Date d = new Date();
@@ -99,7 +107,25 @@ public class GeoCache
         System.out.println("Log adicionado com sucesso!");
     }
 
-
+    public void visitado(Participante participante, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
+    {
+        visitantes.add(participante);
+        for (Objeto o : objetosInseridos)
+            objetos.add(o);
+        for (Objeto retirado : objetosRetirados)
+        {
+            for (Objeto atual : this.objetos)
+            {
+                if (retirado.equals(atual))
+                {
+                    objetos.remove(retirado);
+                    Date d = new Date();
+                    addLog("A GeoCache que foi criada pelo " +this.criadorPremiumParticipante.getNome()+
+                            " foi visitada pelo Participante "+ participante.getNome(), new Timestamp(d.getTime()).toString());
+                }
+            }
+        }
+    }
 
     public static void main(String[] args)
     {
@@ -113,24 +139,42 @@ public class GeoCache
 
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof GeoCache)) return false;
+        GeoCache geoCache = (GeoCache) o;
+        return getId() == geoCache.getId() && getDificuldade() == geoCache.getDificuldade() && Objects.equals(getPontoInteresse(), geoCache.getPontoInteresse()) && getTipoGeoCache() == geoCache.getTipoGeoCache() && Objects.equals(getCriadorPremiumParticipante(), geoCache.getCriadorPremiumParticipante()) && Objects.equals(getObjetos(), geoCache.getObjetos()) && Objects.equals(getLogs(), geoCache.getLogs());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPontoInteresse(), getDificuldade(), getTipoGeoCache(), getCriadorPremiumParticipante(), getObjetos(), getLogs());
+    }
+
+
+    @Override
     public String toString()
     {
-        return "GeoCache{" +
+        for(Objeto o : this.objetos)
+        {
+            return "GeoCache{" +
                 "id=" + id +
                 ", pontoInteresse=" + pontoInteresse +
                 ", dificuldade=" + dificuldade +
                 ", tipoGeoCache=" + tipoGeoCache +
-                //for objetos
-                ", objetos=" + objetos +
-                '}';
+                    ", objeto=" + o.getNome();
+
+        }
+        return null;
     }
 
-    public PremiumParticipante getPremiumParticipante() {
-        return premiumParticipante;
+    public PremiumParticipante getCriadorPremiumParticipante() {
+        return criadorPremiumParticipante;
     }
 
-    public void setPremiumParticipante(PremiumParticipante premiumParticipante) {
-        this.premiumParticipante = premiumParticipante;
+    public void setCriadorPremiumParticipante(PremiumParticipante criadorPremiumParticipante) {
+        this.criadorPremiumParticipante = criadorPremiumParticipante;
     }
 
     public int getId() {
@@ -185,4 +229,6 @@ public class GeoCache
     public void setLogs(ST<String, ArrayList<String>> logs) {
         this.logs = logs;
     }
+
+
 }

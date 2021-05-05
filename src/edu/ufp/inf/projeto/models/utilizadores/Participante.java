@@ -2,6 +2,8 @@ package edu.ufp.inf.projeto.models.utilizadores;
 
 
 import edu.princeton.cs.algs4.ST;
+import edu.ufp.inf.projeto.models.GeoCache;
+import edu.ufp.inf.projeto.models.Objeto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -14,6 +16,8 @@ public class Participante implements Serializable
     private String id;
     private String nome;
     private String mail;
+    private ArrayList<GeoCache> visitadas = new ArrayList<>();
+    private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
     public Participante(String id, String nome, String mail)
@@ -25,11 +29,6 @@ public class Participante implements Serializable
         addLog("Adicionado Participante: "+ this.nome +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
-
-
-    //adiciona, remove OBJETO
-    //adiciona e lista LOgs
-    //associar log a particpantes, geocache e travel bug
 
     /**
      *
@@ -48,6 +47,28 @@ public class Participante implements Serializable
         }
         System.out.println("Log adicionado com sucesso!");
     }
+
+    public void visitouGeo(GeoCache geoCache, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
+    {
+        visitadas.add(geoCache);
+        for (Objeto o : objetosInseridos)
+            objetos.add(o);
+        for (Objeto retirado : objetosRetirados)
+        {
+            for (Objeto atual : this.objetos)
+            {
+                if (retirado.equals(atual))
+                {
+                    objetos.remove(retirado);
+                    Date d = new Date();
+                    addLog("O Participante "+this.getNome()+" visitou a GeoCache que foi criada pelo "
+                            +geoCache.getCriadorPremiumParticipante().getNome(), new Timestamp(d.getTime()).toString());
+                }
+            }
+        }
+    }
+
+
 
     @Override
     public String toString() {
@@ -81,4 +102,6 @@ public class Participante implements Serializable
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+
 }
