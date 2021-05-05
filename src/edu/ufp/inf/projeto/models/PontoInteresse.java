@@ -4,6 +4,7 @@ public class PontoInteresse
 {
     private String nome;
     private CoordenadasGPS coordenadasGPS;
+    private GeoCache geoCache;
 
     /*public PontoInteresse(String nome, CoordenadasGPS coordenadasGPS) {
         this.nome = nome;

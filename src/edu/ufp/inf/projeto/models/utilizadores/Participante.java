@@ -74,17 +74,4 @@ public class Participante implements Serializable
     public void setMail(String mail) {
         this.mail = mail;
     }
-
-    public ST<String, ArrayList<String>> getLogs()
-    {
-        for (String lg: this.logs.keys())
-        {
-            System.out.println(lg + " " + logs.get(lg));
-        }
-        return logs;
-    }
-
-    public void setLogs(ST<String, ArrayList<String>> logs) {
-        this.logs = logs;
-    }
 }

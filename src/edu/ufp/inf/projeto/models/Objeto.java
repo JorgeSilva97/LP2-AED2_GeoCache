@@ -5,6 +5,7 @@ public class Objeto
 
     private String nome;
 
+
     public Objeto(String nome) {
         this.nome = nome;
     }

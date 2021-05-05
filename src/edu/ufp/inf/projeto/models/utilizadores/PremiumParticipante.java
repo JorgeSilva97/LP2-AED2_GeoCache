@@ -15,7 +15,8 @@ public class PremiumParticipante extends Participante
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
 
-    public PremiumParticipante(String id, String nome, String mail) {
+    public PremiumParticipante(String id, String nome, String mail)
+    {
         super(id, nome, mail);
         Date d = new Date();
         addLog("Adicionado ParticipantePremium: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
@@ -36,9 +37,8 @@ public class PremiumParticipante extends Participante
             }
         }
         geoCaches.add(gc);
-        System.out.println("GeoCache adicioanado com sucesso!");
         Date d = new Date();
-        addLog("Adicionada GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
+        addLog("Adicionada GeoCache com sucesso pelo criador "+this.getNome(), new Timestamp(d.getTime()).toString());
     }
 
     /**
@@ -55,7 +55,6 @@ public class PremiumParticipante extends Participante
                 System.out.println("GeoCache removido com sucesso!");
                 Date d = new Date();
                 addLog("Removida GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
-                //System.out.println(new Timestamp(d.getTime()).toString());
                 return;
             }
         }
@@ -75,6 +74,8 @@ public class PremiumParticipante extends Participante
             }
         }
     }
+
+
 
 
 
