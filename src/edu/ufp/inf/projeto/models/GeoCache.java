@@ -46,7 +46,7 @@ public class GeoCache
 
     /**
      * Remove Objeto ao ArrayList
-     * @param o
+     * @param o objeto a remover do ArrayList
      */
     public void removeObjeto (Objeto o)
     {
@@ -65,6 +65,11 @@ public class GeoCache
         System.out.println("Objeto impossível de remover!");
     }
 
+    /**
+     * Edita Objeto ao ArrayList
+     * @param nome, novo nome
+     * @param o, objeto a ser editado
+     */
     public void editObjeto(String nome, Objeto o){
         for(Objeto obj : this.objetos){
            if(obj.getNome().equals(o.getNome())){

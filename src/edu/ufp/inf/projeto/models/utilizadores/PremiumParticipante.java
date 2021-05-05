@@ -43,7 +43,7 @@ public class PremiumParticipante extends Participante
 
     /**
      * Remove GeoCache ao ArrayList
-     * @param gc
+     * @param gc GeoCache a ser removido
      */
     public void removeGeoCache(GeoCache gc)
     {
@@ -61,7 +61,13 @@ public class PremiumParticipante extends Participante
         System.out.println("GeoCache impossível de remover!");
     }
 
-
+    /**
+     * Edita GeoCache ao ArrayList
+     * @param pontoInteresse, novo ponto de interesse
+     * @param dificuldade, nova dificuldade
+     * @param tipoGeoCacheEnum, novo tipo de GeoCache
+     * @param geoCache, geoCache a ser editada
+     */
     public void editGeoCache(PontoInteresse pontoInteresse, int dificuldade, TipoGeoCacheEnum tipoGeoCacheEnum, GeoCache geoCache){
         for(GeoCache geo : this.geoCaches){
             if(geo.getPontoInteresse().equals(geoCache.getPontoInteresse()) && geo.getDificuldade() == geoCache.getDificuldade() && geo.getPremiumParticipante().equals(geoCache.getPremiumParticipante()) && geo.getTipoGeoCache().equals(geoCache.getTipoGeoCache())){
