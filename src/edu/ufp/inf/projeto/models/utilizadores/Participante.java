@@ -13,18 +13,16 @@ import java.util.Date;
 public class Participante implements Serializable
 {
 
-    private String id;
+    private int id;
     private String nome;
-    private String mail;
     private ArrayList<GeoCache> visitadas = new ArrayList<>();
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
-    public Participante(String id, String nome, String mail)
+    public Participante(int id, String nome)
     {
         this.id = id;
         this.nome = nome;
-        this.mail = mail;
         Date d = new Date();
         addLog("Adicionado Participante: "+ this.nome +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
@@ -75,15 +73,14 @@ public class Participante implements Serializable
         return "Participante{" +
                 "id='" + id + '\'' +
                 ", nome='" + nome + '\'' +
-                ", mail='" + mail + '\'' +
                 '}';
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -94,14 +91,5 @@ public class Participante implements Serializable
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
 
 }

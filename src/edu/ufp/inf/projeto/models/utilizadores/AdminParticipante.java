@@ -9,12 +9,11 @@ import java.util.Date;
 public class AdminParticipante extends PremiumParticipante
 {
 
-
     private ArrayList<Participante> participantes = new ArrayList<>();
 
-    public AdminParticipante(String id, String nome, String mail)
+    public AdminParticipante(int id, String nome)
     {
-        super(id, nome, mail);
+        super(id, nome);
         Date d = new Date();
         addLog("Adicionado AdminParticipante: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
 
