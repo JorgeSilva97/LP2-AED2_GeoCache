@@ -9,7 +9,6 @@ import java.util.Date;
 
 public class AdminParticipante extends PremiumParticipante {
 
-
     private ArrayList<Participante> participantes = new ArrayList<>();
 
     public AdminParticipante(int id, String nome)

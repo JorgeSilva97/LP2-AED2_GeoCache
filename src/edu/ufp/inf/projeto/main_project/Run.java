@@ -2,13 +2,16 @@ package edu.ufp.inf.projeto.main_project;
 
 
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.ST;
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.ufp.inf.projeto.models.GeoCache;
 import edu.ufp.inf.projeto.models.Objeto;
-import edu.ufp.inf.projeto.models.PontoInteresse;
+import edu.ufp.inf.projeto.models.TravelBug;
+import edu.ufp.inf.projeto.models.utilizadores.Participante;
 
 import java.util.ArrayList;
 
-public class Run {
+public class Run
+{
 
     /**
      * Main function
@@ -16,9 +19,12 @@ public class Run {
      */
     public static void main(String[] args) {
 
-        //ST<, > pontosInteresseST = new ST<>();
-
         System.out.println("\t\tMAIN");
+
+        RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
+        RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+
+
 
     }
 
@@ -39,7 +45,6 @@ public class Run {
             switch (tipo){
                 case "premium":
                     //PremiumParticipante pp = new PremiumParticipante(id,nome);
-
                     break;
                 case "basic":
                     break;
@@ -70,6 +75,29 @@ public class Run {
         }
 
     }
+
+    public void visitaGeoCache (GeoCache geoCache, Participante participante,
+                                   ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
+    {
+        geoCache.visitado(participante, objetosInseridos, objetosRetirados);
+        participante.visitouGeo(geoCache,objetosInseridos, objetosRetirados); //criar array objetos
+        for (Objeto o : objetosInseridos)
+        {
+            if (o instanceof TravelBug)
+            {
+                ((TravelBug)o).update(geoCache, participante, true);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 }
