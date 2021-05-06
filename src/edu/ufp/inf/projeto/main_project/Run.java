@@ -3,7 +3,6 @@ package edu.ufp.inf.projeto.main_project;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
-import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.*;
 import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
@@ -35,6 +34,8 @@ public class Run
 
 
 
+
+
     }
 
     /**
@@ -53,7 +54,7 @@ public class Run
             int id = Integer.parseInt(temParticipante[0]);
             String nome = temParticipante[1];
             String tipo = temParticipante[2];
-            switch (tipo)
+            switch (tipo.trim())
             {
                 case "premium":
                     PremiumParticipante premiumParticipante = new PremiumParticipante(id, nome);
@@ -74,7 +75,7 @@ public class Run
         {
             String[] temRegioes = in.readLine().split(",");
             String nomeRegiao =temRegioes[0];
-            int numeroGeoCaches = Integer.parseInt(temRegioes[1]);
+            int numeroGeoCaches = Integer.parseInt(temRegioes[1].trim());
             for (int j = 0; j < numeroGeoCaches; j++)
             {
                 String[] geoCaches = in.readLine().split(",");
@@ -84,22 +85,21 @@ public class Run
                 double coordenadaX = Double.parseDouble(x);
                 String y = geoCaches[3];
                 double coordenadaY = Double.parseDouble(y);
-                String numObjetos = geoCaches[4];
-                ArrayList<Objeto> obj = new ArrayList<>();
-                for (int k=0; k < Integer.parseInt(numObjetos);k++)
+                int numObjetos = Integer.parseInt(geoCaches[4].trim());
+                for (int k=0; k <numObjetos; k++)
                 {
-                    String objeto = geoCaches[k];
+                    String objeto = geoCaches[k+5];
                     Objeto o = new Objeto(objeto);
-                    obj.add(o);
+                    objetos.add(o);
                 }
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
-                switch (tipoG)
+                switch (tipoG.trim())
                 {
                     case "basic":
                         GeoCache geoCache = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.BASIC);
                         pontoInteresse.setGeoCache(geoCache);
                         pontosInteresse.add(pontoInteresse);
-                        geoCachess.put(geoCache.getPontoInteresse().getNome(), geoCache);
+                        geoCachess.put(pontoInteresse.getNome(), geoCache);
                         break;
                     case "premium":
                         GeoCache geoCachePremium = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.PREMIUM);
@@ -135,6 +135,7 @@ public class Run
                                 if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoFim)==0)
                                 {
                                     TravelBug travelBug = new TravelBug(nomeTravel, gcc, gccs);
+                                    travelBug.setParticipante(ppp);
                                     objetos.add(travelBug);
                                 }
                             }
@@ -149,7 +150,7 @@ public class Run
                                    ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
         geoCache.visitado(participante, objetosInseridos, objetosRetirados);
-        participante.visitouGeo(geoCache,objetosInseridos, objetosRetirados); //criar array objetos
+        participante.visitouGeo(geoCache,objetosInseridos, objetosRetirados);
         for (Objeto o : objetosInseridos)
         {
             if (o instanceof TravelBug)

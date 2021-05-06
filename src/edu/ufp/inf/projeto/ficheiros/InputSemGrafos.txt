@@ -17,7 +17,7 @@ geocache7, basic, 41.2421226, -8.6807401, 1, bilhetes_aviao
 centro, 5
 geocache8, basic, 40.2094433, -8.4208601, 2, canudo, capa
 geocache9, basic, 40.2027321, -8.4333746, 0
-geocache10, premium, 40.188891, -8.410378, borracha, chaves
+geocache10, premium, 40.188891, -8.410378, 2, borracha, chaves
 geocache11, basic, 40.6394116, -8.6621375, 1, ovos_moles
 geocache12, basic, 40.6597787, -7.9136921, 1, espada
 sul, 6
