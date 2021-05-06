@@ -40,7 +40,7 @@ public class TravelBug extends Objeto
             lg.add(l);
             logs.put(dateTime, lg);
         }
-        System.out.println("Log adicionado com sucesso!");
+       // System.out.println("Log adicionado com sucesso!");
     }
 
 
@@ -52,19 +52,13 @@ public class TravelBug extends Objeto
             Date d = new Date();
             addLog("TravelBug inserido na GeoCache pelo Participante " + participante.getNome(), new Timestamp(d.getTime()).toString());
             if (geoCache.equals(this.objetivoFinal))
-            {
                 addLog("TravelBug chegou ao Objetivo Final!!", new Timestamp(d.getTime()).toString());
-            }
         }
         else
         {
+            //está a retirar
             Date d = new Date();
             addLog("TravelBug retirado na GeoCache pelo Participante " + participante.getNome(), new Timestamp(d.getTime()).toString());
-            if (geoCache.equals(this.objetivoFinal))
-            {
-               // addLog("TravelBug não chegou ao Objetivo Final!!", new Timestamp(d.getTime()).toString());
-            }
-
         }
     }
 

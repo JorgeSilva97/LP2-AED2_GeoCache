@@ -103,7 +103,7 @@ public class GeoCache
             lg.add(l);
             logs.put(dateTime, lg);
         }
-        System.out.println("Log adicionado com sucesso!");
+        //System.out.println("Log adicionado com sucesso!");
     }
 
     public void visitado(Participante participante, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)

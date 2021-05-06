@@ -20,6 +20,7 @@ public class PontoInteresse
         this.x = x;
         this.y = y;
         this.regiao = regiao;
+        this.nome = nome;
     }
 
     public PontoInteresse() {

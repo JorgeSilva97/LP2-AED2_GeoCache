@@ -13,24 +13,31 @@ import java.util.ArrayList;
 public class Run
 {
 
+    private static ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
+    private static ArrayList<Objeto> objetos = new ArrayList<>();
+    private static RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
+    private static RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+
     /**
      * Main function
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         System.out.println("\t\tMAIN");
 
-        ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
-        ArrayList<Objeto> objetos = new ArrayList<>();
-        RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
-        RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+        String path = "...//ficheiros//InputSemGrafos.txt";
+        loadFromFile("/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt");
+        System.out.println("\tGEO CACHES");
+        listGeoCache();
+        System.out.println("\tPARTICIPANTES");
+        listParticipante();
+        System.out.println("\tOBJETOS");
+        listObjetos();
+        System.out.println("\tPONTOS DE INTERESSE");
+        listPontosInteresse();
 
-        loadFromFile("/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt",
-                participantes, geoCaches, pontosInteresse, objetos);
-
-        for (Objeto o : objetos)
-            System.out.println(o.getNome());
 
 
 
@@ -42,9 +49,7 @@ public class Run
      * funcao que faz lê do ficheiro input toda a informação dele
      * @param path
      */
-    public static void loadFromFile(String path, RedBlackBST<String, Participante> participantes,
-                                    RedBlackBST<String, GeoCache> geoCachess, ArrayList<PontoInteresse> pontosInteresse,
-                                    ArrayList<Objeto> objetos)
+    public static void loadFromFile(String path)
     {
         In in = new In(path);
         String nParticipantes = in.readLine();
@@ -52,7 +57,7 @@ public class Run
         {
             String[] temParticipante = in.readLine().split(",");
             int id = Integer.parseInt(temParticipante[0]);
-            String nome = temParticipante[1];
+            String nome = temParticipante[1].trim();
             String tipo = temParticipante[2];
             switch (tipo.trim())
             {
@@ -78,17 +83,17 @@ public class Run
             int numeroGeoCaches = Integer.parseInt(temRegioes[1].trim());
             for (int j = 0; j < numeroGeoCaches; j++)
             {
-                String[] geoCaches = in.readLine().split(",");
-                String nomeG = geoCaches[0];
-                String tipoG = geoCaches[1];
-                String x = geoCaches[2];
+                String[] geoCachess = in.readLine().split(",");
+                String nomeG = geoCachess[0];
+                String tipoG = geoCachess[1];
+                String x = geoCachess[2];
                 double coordenadaX = Double.parseDouble(x);
-                String y = geoCaches[3];
+                String y = geoCachess[3];
                 double coordenadaY = Double.parseDouble(y);
-                int numObjetos = Integer.parseInt(geoCaches[4].trim());
+                int numObjetos = Integer.parseInt(geoCachess[4].trim());
                 for (int k=0; k <numObjetos; k++)
                 {
-                    String objeto = geoCaches[k+5];
+                    String objeto = geoCachess[k+5];
                     Objeto o = new Objeto(objeto);
                     objetos.add(o);
                 }
@@ -99,13 +104,14 @@ public class Run
                         GeoCache geoCache = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.BASIC);
                         pontoInteresse.setGeoCache(geoCache);
                         pontosInteresse.add(pontoInteresse);
-                        geoCachess.put(pontoInteresse.getNome(), geoCache);
+                        geoCaches.put(pontoInteresse.getNome(), geoCache);
+
                         break;
                     case "premium":
                         GeoCache geoCachePremium = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.PREMIUM);
                         pontoInteresse.setGeoCache(geoCachePremium);
                         pontosInteresse.add(pontoInteresse);
-                        geoCachess.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
+                        geoCaches.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
                         break;
                 }
 
@@ -116,22 +122,22 @@ public class Run
         {
             String[] travelBugs = in.readLine().split(",");
             String nomeTravel = travelBugs[0];
-            String nomeParticipante = travelBugs[1];
-            String nomeGeoInicio = travelBugs[2];
-            String nomeGeoFim = travelBugs[3];
+            String nomeParticipante = travelBugs[1].trim();
+            String nomeGeoInicio = travelBugs[2].trim();
+            String nomeGeoFim = travelBugs[3].trim();
             for (String p : participantes.keys())
             {
                 Participante ppp = participantes.get(p);
                 if (ppp.getNome().compareTo(nomeParticipante)==0)
                 {
-                    for (String inicio : geoCachess.keys())
+                    for (String inicio : geoCaches.keys())
                     {
-                        GeoCache gcc = geoCachess.get(inicio);
+                        GeoCache gcc = geoCaches.get(inicio);
                         if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoInicio)==0)
                         {
-                            for (String fim : geoCachess.keys())
+                            for (String fim : geoCaches.keys())
                             {
-                                GeoCache gccs = geoCachess.get(fim);
+                                GeoCache gccs = geoCaches.get(fim);
                                 if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoFim)==0)
                                 {
                                     TravelBug travelBug = new TravelBug(nomeTravel, gcc, gccs);
@@ -157,6 +163,62 @@ public class Run
             {
                 ((TravelBug)o).update(geoCache, participante, true);
             }
+        }
+    }
+
+
+    public void participantesMaisAtivos (RedBlackBST<String, Participante> participantes)
+    {
+
+        int numero = 0;
+        for (String part : participantes.keys())
+        {
+            Participante p = participantes.get(part);
+            int num = p.getVisitadas().size();
+            if (num >= numero)
+                numero = num;
+
+        }
+    }
+
+
+
+    public static void listGeoCache()
+    {
+        for(String geoCache : geoCaches.keys())
+        {
+            GeoCache gc = geoCaches.get(geoCache);
+            System.out.println(gc.getPontoInteresse().getRegiao()+ " " +gc.getPontoInteresse().getNome() + " " + gc.getTipoGeoCache());
+            System.out.println(gc.getPontoInteresse().getX()+ " " +gc.getPontoInteresse().getY());
+            System.out.println("----------------------");
+        }
+    }
+
+    public static void listParticipante()
+    {
+        for(String pi : participantes.keys())
+        {
+            Participante participante = participantes.get(pi);
+            System.out.println(participante.getId()+ " " +participante.getNome());
+            System.out.println("----------------");
+        }
+    }
+
+    public static void listObjetos()
+    {
+        for(Objeto oi : objetos) {
+            System.out.println(oi.getNome());
+            System.out.println("----------------");
+        }
+    }
+
+    public static void listPontosInteresse()
+    {
+        for (PontoInteresse pontoInteresse : pontosInteresse)
+        {
+            System.out.println(pontoInteresse.getNome()+" "+pontoInteresse.getRegiao());
+            System.out.println(pontoInteresse.getX()+" "+pontoInteresse.getY());
+            System.out.println("----------------");
         }
     }
 

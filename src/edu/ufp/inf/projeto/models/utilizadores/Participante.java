@@ -43,7 +43,7 @@ public class Participante implements Serializable
             lg.add(l);
             logs.put(dateTime, lg);
         }
-        System.out.println("Log adicionado com sucesso!");
+        //System.out.println("Log adicionado com sucesso!");
     }
 
     public void visitouGeo(GeoCache geoCache, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
@@ -74,6 +74,30 @@ public class Participante implements Serializable
                 "id='" + id + '\'' +
                 ", nome='" + nome + '\'' +
                 '}';
+    }
+
+    public ArrayList<GeoCache> getVisitadas() {
+        return visitadas;
+    }
+
+    public void setVisitadas(ArrayList<GeoCache> visitadas) {
+        this.visitadas = visitadas;
+    }
+
+    public ArrayList<Objeto> getObjetos() {
+        return objetos;
+    }
+
+    public void setObjetos(ArrayList<Objeto> objetos) {
+        this.objetos = objetos;
+    }
+
+    public ST<String, ArrayList<String>> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(ST<String, ArrayList<String>> logs) {
+        this.logs = logs;
     }
 
     public int getId() {
