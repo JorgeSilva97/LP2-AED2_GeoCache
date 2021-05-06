@@ -2,6 +2,8 @@ package edu.ufp.inf.projeto.models.utilizadores;
 
 import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.GeoCache;
+import edu.ufp.inf.projeto.models.PontoInteresse;
+import edu.ufp.inf.projeto.models.TipoGeoCacheEnum;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -13,9 +15,9 @@ public class PremiumParticipante extends Participante
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
 
-    public PremiumParticipante(String id, String nome, String mail)
+    public PremiumParticipante(int id, String nome)
     {
-        super(id, nome, mail);
+        super(id, nome);
         Date d = new Date();
         addLog("Adicionado ParticipantePremium: "+ nome +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
@@ -59,9 +61,54 @@ public class PremiumParticipante extends Participante
         System.out.println("GeoCache impossível de remover!");
     }
 
+    public void editGeoCache(PontoInteresse pontoInteresse, TipoGeoCacheEnum tipoGeoCacheEnum, GeoCache geoCache){
+        for(GeoCache geo : this.geoCaches){
+           if(geo.getPontoInteresse().getNome().equals(geoCache.getPontoInteresse().getNome()) && geo.getPontoInteresse().getRegiao().equals(geoCache.getPontoInteresse().getRegiao()) && geo.getPontoInteresse().getX() == geoCache.getPontoInteresse().getX() && geo.getPontoInteresse().getY() == geoCache.getPontoInteresse().getY() && geo.getTipoGeoCache().equals(geoCache.getTipoGeoCache())){
+               geo.getPontoInteresse().setNome(pontoInteresse.getNome());
+               geo.getPontoInteresse().setRegiao(pontoInteresse.getRegiao());
+               geo.getPontoInteresse().setX(pontoInteresse.getX());
+               geo.getPontoInteresse().setY(pontoInteresse.getY());
+               geo.setTipoGeoCache(tipoGeoCacheEnum);
+               System.out.println("Operação efetuada com sucesso!");
+               Date d = new Date();
+               addLog("GeoCache Editado com sucesso!", new Timestamp(d.getTime()).toString());
+               return;
+           }
+        }
+    }
+
+    public void listGeoCache(){
+        for(GeoCache geoCache : this.geoCaches){
+            System.out.println(geoCache.getPontoInteresse().getRegiao());
+            System.out.println(geoCache.getPontoInteresse().getNome());
+            System.out.println(geoCache.getTipoGeoCache());
+            System.out.println(geoCache.getPontoInteresse().getX());
+            System.out.println(geoCache.getPontoInteresse().getY());
+        }
+    }
 
 
+    public static void main(String[] args) {
+        PontoInteresse pi1 = new PontoInteresse(3.4,2.6,"norte","GeoCache1");
+        PontoInteresse pi2 = new PontoInteresse(2.7,8.9,"sul","GeoCache2");
+        GeoCache gc1 = new GeoCache(1,pi1,TipoGeoCacheEnum.BASIC);
+        GeoCache gc2 = new GeoCache(2,pi2,TipoGeoCacheEnum.BASIC);
 
+        PremiumParticipante premiumParticipante = new PremiumParticipante(1,"Rute");
+        premiumParticipante.addGeoCache(gc1);
+        premiumParticipante.addGeoCache(gc2);
+        premiumParticipante.listGeoCache();
+
+        //System.out.println("----------editado---------");
+        //premiumParticipante.editGeoCache(pi1,TipoGeoCacheEnum.PREMIUM,gc1);
+        //premiumParticipante.listGeoCache();
+
+        System.out.println("----------removido---------");
+        premiumParticipante.removeGeoCache(gc1);
+        premiumParticipante.listGeoCache();
+
+
+    }
 
 
 
