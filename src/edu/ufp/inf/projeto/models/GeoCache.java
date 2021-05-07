@@ -152,7 +152,7 @@ public class GeoCache
     }
 
 
-    @Override
+   /* @Override
     public String toString()
     {
         for(Objeto o : this.objetos)
@@ -166,6 +166,16 @@ public class GeoCache
 
         }
         return null;
+    }*/
+
+    @Override
+    public String toString() {
+        return "GeoCache{" +
+                "id=" + id +
+                ", pontoInteresse=" + pontoInteresse +
+                ", tipoGeoCache=" + tipoGeoCache +
+                ", criadorPremiumParticipante=" + criadorPremiumParticipante +
+                '}';
     }
 
     public PremiumParticipante getCriadorPremiumParticipante() {

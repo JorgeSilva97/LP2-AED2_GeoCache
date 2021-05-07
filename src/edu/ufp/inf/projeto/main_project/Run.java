@@ -7,6 +7,9 @@ import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Run
@@ -27,7 +30,10 @@ public class Run
         System.out.println("\t\tMAIN");
 
         String path = "...//ficheiros//InputSemGrafos.txt";
-        loadFromFile("/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt");
+        String path_cunha_criar = "/Users/franciscocunha/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/Output.txt";
+        String path_jorge = "/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt";
+        String path_jorge_criar = "/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/Output.txt";
+        loadFromFile(path_jorge);
         System.out.println("\tGEO CACHES");
         listGeoCache();
         System.out.println("\tPARTICIPANTES");
@@ -36,7 +42,8 @@ public class Run
         listObjetos();
         System.out.println("\tPONTOS DE INTERESSE");
         listPontosInteresse();
-
+        //createFile(path_jorge_criar);
+        writeToFile(path_jorge_criar);
 
 
 
@@ -90,12 +97,6 @@ public class Run
                 String y = geoCachess[3];
                 double coordenadaY = Double.parseDouble(y);
                 int numObjetos = Integer.parseInt(geoCachess[4].trim());
-                for (int k=0; k <numObjetos; k++)
-                {
-                    String objeto = geoCachess[k+5];
-                    Objeto o = new Objeto(objeto);
-                    objetos.add(o);
-                }
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
                 switch (tipoG.trim())
                 {
@@ -104,16 +105,28 @@ public class Run
                         pontoInteresse.setGeoCache(geoCache);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(pontoInteresse.getNome(), geoCache);
-
+                        for (int k=0; k <numObjetos; k++)
+                        {
+                            String objeto = geoCachess[k+5];
+                            Objeto o = new Objeto(objeto);
+                            geoCache.getObjetos().add(o);
+                            objetos.add(o);
+                        }
                         break;
                     case "premium":
                         GeoCache geoCachePremium = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.PREMIUM);
                         pontoInteresse.setGeoCache(geoCachePremium);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
+                        for (int k=0; k <numObjetos; k++)
+                        {
+                            String objeto = geoCachess[k+5];
+                            Objeto o = new Objeto(objeto);
+                            geoCachePremium.getObjetos().add(o);
+                            objetos.add(o);
+                        }
                         break;
                 }
-
             }
         }
         String numeroTravelBugs = in.readLine();
@@ -129,17 +142,15 @@ public class Run
                 Participante ppp = participantes.get(p);
                 if (ppp.getNome().compareTo(nomeParticipante)==0)
                 {
-                    for (String inicio : geoCaches.keys())
+                    for (PontoInteresse pontoInteresse1 : pontosInteresse)
                     {
-                        GeoCache gcc = geoCaches.get(inicio);
-                        if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoInicio)==0)
+                        if(pontoInteresse1.getNome().compareTo(nomeGeoInicio)==0)
                         {
-                            for (String fim : geoCaches.keys())
+                            for (PontoInteresse pontoInteresse2: pontosInteresse)
                             {
-                                GeoCache gccs = geoCaches.get(fim);
-                                if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoFim)==0)
+                                if (pontoInteresse2.getNome().compareTo(nomeGeoFim)==0)
                                 {
-                                    TravelBug travelBug = new TravelBug(nomeTravel, gcc, gccs);
+                                    TravelBug travelBug = new TravelBug(nomeTravel, pontoInteresse1.getGeoCache(), pontoInteresse2.getGeoCache());
                                     travelBug.setParticipante(ppp);
                                     objetos.add(travelBug);
                                 }
@@ -150,7 +161,103 @@ public class Run
             }
         }
     }
+    public static void createFile(String path){
+        try{
+            File myObj = new File(path);
+            if(myObj.createNewFile()){
+                System.out.println("File Created: " + myObj.getName());
+            }else {
+                System.out.println("File already exists.");
+            }
+        }catch (IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
+    public static void writeToFile(String path){
+        try{
+            FileWriter myWriter = new FileWriter(path);
+            int numParticipante = participantes.size();
+            myWriter.write(String.valueOf(Long.valueOf(numParticipante)));
+            myWriter.write("\n");
+            for(String p_aux : participantes.keys()){
+                Participante participante = participantes.get(p_aux);
+                myWriter.write(String.valueOf(Long.valueOf(participante.getId())));
+                myWriter.write(", ");
+                myWriter.write(participante.getNome());
+                myWriter.write(", ");
+                if(participante instanceof PremiumParticipante){
+                    if(participante instanceof AdminParticipante)
+                        myWriter.write("admin");
+                    else
+                        myWriter.write("premium");
+
+                }
+                else
+                    myWriter.write("basic");
+
+                myWriter.write("\n");
+            }
+
+            myWriter.write(String.valueOf(Integer.valueOf(3)));
+            myWriter.write("\n");
+            ArrayList<PontoInteresse> norte = new ArrayList<>();
+            ArrayList<PontoInteresse> centro = new ArrayList<>();
+            ArrayList<PontoInteresse> sul = new ArrayList<>();
+
+            for (PontoInteresse pi_aux : pontosInteresse){
+                if(pi_aux.getRegiao().compareTo("norte") == 0){
+                    norte.add(pi_aux);
+                }else if(pi_aux.getRegiao().compareTo("centro") == 0){
+                    centro.add(pi_aux);
+                }else if(pi_aux.getRegiao().compareTo("sul") == 0){
+                    sul.add(pi_aux);
+                }
+            }
+            myWriter.write("norte, ");
+            myWriter.write(String.valueOf(Integer.valueOf(norte.size())));
+            myWriter.write("\n");
+            for(PontoInteresse ponto_aux : norte){
+                myWriter.write(ponto_aux.getNome()+", "+ponto_aux.getGeoCache().getTipoGeoCache()+", "
+                        +ponto_aux.getX()+", "+ponto_aux.getY()+", ");
+                int tamanhoObjetos = ponto_aux.getGeoCache().getObjetos().size();
+                myWriter.write(String.valueOf(Integer.valueOf(tamanhoObjetos)));
+                for (Objeto o : ponto_aux.getGeoCache().getObjetos())
+                    myWriter.write( ", "+String.valueOf(o.getNome()));
+                myWriter.write("\n");
+            }
+            myWriter.write("centro, ");
+            myWriter.write(String.valueOf(Integer.valueOf(centro.size())));
+            myWriter.write("\n");
+            for(PontoInteresse ponto_aux1 : centro){
+                myWriter.write(ponto_aux1.getNome()+", "+ponto_aux1.getGeoCache().getTipoGeoCache()+", "
+                        +ponto_aux1.getX()+", "+ponto_aux1.getY()+", ");
+                int tamanhoObjetos = ponto_aux1.getGeoCache().getObjetos().size();
+                myWriter.write(String.valueOf(Integer.valueOf(tamanhoObjetos)));
+                for (Objeto o : ponto_aux1.getGeoCache().getObjetos())
+                    myWriter.write( ", "+String.valueOf(o.getNome()));
+                myWriter.write("\n");
+            }
+            myWriter.write("sul, ");
+            myWriter.write(String.valueOf(Integer.valueOf(sul.size())));
+            myWriter.write("\n");
+            for(PontoInteresse ponto_aux2 : sul){
+                myWriter.write(ponto_aux2.getNome()+", "+ponto_aux2.getGeoCache().getTipoGeoCache()+", "
+                        +ponto_aux2.getX()+", "+ponto_aux2.getY()+", ");
+                int tamanhoObjetos = ponto_aux2.getGeoCache().getObjetos().size();
+                myWriter.write(String.valueOf(Integer.valueOf(tamanhoObjetos)));
+                for (Objeto o : ponto_aux2.getGeoCache().getObjetos())
+                    myWriter.write( ", "+String.valueOf(o.getNome()));
+                myWriter.write("\n");
+            }
+            myWriter.close();
+        }catch (IOException e){
+            System.out.println("Ocorreu um erro ao abrir o ficheiro");
+            e.printStackTrace();
+        }
+
+    }
     public static void visitaGeoCache (GeoCache geoCache, Participante participante,
                                    ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
