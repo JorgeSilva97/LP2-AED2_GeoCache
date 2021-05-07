@@ -161,38 +161,42 @@ public class Run
             }
         }
     }
-    public static void createFile(String path){
-        try{
+    public static void createFile(String path)
+    {
+        try
+        {
             File myObj = new File(path);
             if(myObj.createNewFile()){
-                System.out.println("File Created: " + myObj.getName());
+                System.out.println("Ficheiro criado: " + myObj.getName());
             }else {
-                System.out.println("File already exists.");
+                System.out.println("Ficheiro já existe.");
             }
         }catch (IOException e){
-            System.out.println("An error occurred.");
+            System.out.println("Ocorreu um erro, lamento.");
             e.printStackTrace();
         }
     }
 
     public static void writeToFile(String path){
-        try{
+        try
+        {
             FileWriter myWriter = new FileWriter(path);
             int numParticipante = participantes.size();
             myWriter.write(String.valueOf(Long.valueOf(numParticipante)));
             myWriter.write("\n");
+
             for(String p_aux : participantes.keys()){
                 Participante participante = participantes.get(p_aux);
                 myWriter.write(String.valueOf(Long.valueOf(participante.getId())));
                 myWriter.write(", ");
                 myWriter.write(participante.getNome());
                 myWriter.write(", ");
-                if(participante instanceof PremiumParticipante){
+                if(participante instanceof PremiumParticipante)
+                {
                     if(participante instanceof AdminParticipante)
                         myWriter.write("admin");
                     else
                         myWriter.write("premium");
-
                 }
                 else
                     myWriter.write("basic");
@@ -252,6 +256,7 @@ public class Run
                     myWriter.write( ", "+String.valueOf(o.getNome()));
                 myWriter.write("\n");
             }
+
             int k=0;
             for (Objeto objeto : objetos)
             {
