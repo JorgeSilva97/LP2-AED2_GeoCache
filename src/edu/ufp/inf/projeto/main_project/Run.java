@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class Run
 {
 
+    /**
+     *
+     */
     private static ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
     private static ArrayList<Objeto> objetos = new ArrayList<>();
     private static RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
@@ -44,11 +47,6 @@ public class Run
         listPontosInteresse();
         //createFile(path_jorge_criar);
         writeToFile(path_jorge_criar);
-
-
-
-
-
     }
 
     /**
@@ -161,6 +159,11 @@ public class Run
             }
         }
     }
+
+    /**
+     *
+     * @param path
+     */
     public static void createFile(String path)
     {
         try
@@ -177,6 +180,10 @@ public class Run
         }
     }
 
+    /**
+     *
+     * @param path
+     */
     public static void writeToFile(String path){
         try
         {
@@ -272,12 +279,21 @@ public class Run
                                 ((TravelBug) objeto).getObjetivoFinal().getPontoInteresse().getNome()+"\n");
             }
             myWriter.close();
-        }catch (IOException e){
+        }catch (IOException e)
+        {
             System.out.println("Ocorreu um erro ao abrir o ficheiro");
             e.printStackTrace();
         }
 
     }
+
+    /**
+     *
+     * @param geoCache que é visitada
+     * @param participante que visita a GeoCache
+     * @param objetosInseridos objetos a adicionar à GeoCache
+     * @param objetosRetirados objetos a retirar à GeoCache
+     */
     public static void visitaGeoCache (GeoCache geoCache, Participante participante,
                                    ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
@@ -290,7 +306,10 @@ public class Run
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public ArrayList<Participante> participantesMaisAtivos()
     {
         ArrayList<Participante> participantes1 = new ArrayList<>();
@@ -321,11 +340,20 @@ public class Run
         return participantes1;
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public ArrayList<GeoCache> GeoCachesVisitadas(Participante p)
     {
         return p.getVisitadas();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<GeoCache> CachesPremiumComMaisUmObjeto()
     {
         ArrayList<GeoCache> geos = new ArrayList<>();
@@ -342,8 +370,9 @@ public class Run
         return geos;
     }
 
-
-
+    /**
+     *
+     */
     public static void listGeoCache()
     {
         for(String geoCache : geoCaches.keys())
@@ -355,6 +384,9 @@ public class Run
         }
     }
 
+    /**
+     *
+     */
     public static void listParticipante()
     {
         for(String pi : participantes.keys())
@@ -365,6 +397,9 @@ public class Run
         }
     }
 
+    /**
+     *
+     */
     public static void listObjetos()
     {
         for(Objeto oi : objetos) {
@@ -373,6 +408,9 @@ public class Run
         }
     }
 
+    /**
+     *
+     */
     public static void listPontosInteresse()
     {
         for (PontoInteresse pontoInteresse : pontosInteresse)
