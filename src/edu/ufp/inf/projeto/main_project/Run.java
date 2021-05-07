@@ -1,6 +1,5 @@
 package edu.ufp.inf.projeto.main_project;
 
-
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.projeto.models.*;
@@ -152,7 +151,7 @@ public class Run
         }
     }
 
-    public void visitaGeoCache (GeoCache geoCache, Participante participante,
+    public static void visitaGeoCache (GeoCache geoCache, Participante participante,
                                    ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
         geoCache.visitado(participante, objetosInseridos, objetosRetirados);
@@ -160,25 +159,60 @@ public class Run
         for (Objeto o : objetosInseridos)
         {
             if (o instanceof TravelBug)
-            {
                 ((TravelBug)o).update(geoCache, participante, true);
-            }
         }
     }
 
 
-    public void participantesMaisAtivos (RedBlackBST<String, Participante> participantes)
+    public ArrayList<Participante> participantesMaisAtivos()
     {
-
-        int numero = 0;
+        ArrayList<Participante> participantes1 = new ArrayList<>();
+        int[] maisVisitados = {0,0,0,0,0};
+        Long[] idMaisVisitados = {Long.valueOf(0),Long.valueOf(0),Long.valueOf(0),Long.valueOf(0),Long.valueOf(0)};
         for (String part : participantes.keys())
         {
             Participante p = participantes.get(part);
             int num = p.getVisitadas().size();
-            if (num >= numero)
-                numero = num;
-
+            for (int i : maisVisitados)
+            {
+                if (num > maisVisitados[i])
+                {
+                    maisVisitados[i] = num;
+                    idMaisVisitados[i] = Long.valueOf(p.getId());
+                }
+            }
         }
+        for (String part : participantes.keys())
+        {
+            Participante parti = participantes.get(part);
+            for (Long id: idMaisVisitados)
+            {
+                if (parti.getId() == idMaisVisitados[Math.toIntExact(id)])
+                    participantes1.add(parti);
+            }
+        }
+        return participantes1;
+    }
+
+    public ArrayList<GeoCache> GeoCachesVisitadas(Participante p)
+    {
+        return p.getVisitadas();
+    }
+
+    public ArrayList<GeoCache> CachesPremiumComMaisUmObjeto()
+    {
+        ArrayList<GeoCache> geos = new ArrayList<>();
+        for (String geo : geoCaches.keys())
+        {
+            GeoCache geoCache = geoCaches.get(geo);
+            if (geoCache.getTipoGeoCache().equals(TipoGeoCacheEnum.PREMIUM))
+            {
+                int num = geoCache.getObjetos().size();
+                if (num > 1)
+                    geos.add(geoCache);
+            }
+        }
+        return geos;
     }
 
 

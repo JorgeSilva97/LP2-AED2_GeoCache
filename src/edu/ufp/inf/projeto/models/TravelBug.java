@@ -44,9 +44,9 @@ public class TravelBug extends Objeto
     }
 
 
-    public void update(GeoCache geoCache, Participante participante, boolean b)
+    public void update(GeoCache geoCache, Participante participante, boolean insere)
     {
-        if(b)
+        if(insere)
         {
             //está a inserir
             Date d = new Date();
