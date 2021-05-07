@@ -50,10 +50,7 @@ public class Run
         System.out.println("escreveu no ficheiro");
     }
 
-    /**
-     * funcao que faz lê do ficheiro input toda a informação dele
-     * @param path
-     */
+
     public static void loadFromFile(String path)
     {
         In in = new In(path);
@@ -96,12 +93,6 @@ public class Run
                 String y = geoCachess[3];
                 double coordenadaY = Double.parseDouble(y);
                 int numObjetos = Integer.parseInt(geoCachess[4].trim());
-                for (int k=0; k <numObjetos; k++)
-                {
-                    String objeto = geoCachess[k+5];
-                    Objeto o = new Objeto(objeto);
-                    objetos.add(o);
-                }
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
                 switch (tipoG.trim())
                 {
@@ -110,16 +101,28 @@ public class Run
                         pontoInteresse.setGeoCache(geoCache);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(pontoInteresse.getNome(), geoCache);
-
+                        for (int k=0; k <numObjetos; k++)
+                        {
+                            String objeto = geoCachess[k+5];
+                            Objeto o = new Objeto(objeto);
+                            geoCache.getObjetos().add(o);
+                            objetos.add(o);
+                        }
                         break;
                     case "premium":
                         GeoCache geoCachePremium = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.PREMIUM);
                         pontoInteresse.setGeoCache(geoCachePremium);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
+                        for (int k=0; k <numObjetos; k++)
+                        {
+                            String objeto = geoCachess[k+5];
+                            Objeto o = new Objeto(objeto);
+                            geoCachePremium.getObjetos().add(o);
+                            objetos.add(o);
+                        }
                         break;
                 }
-
             }
         }
         String numeroTravelBugs = in.readLine();
@@ -135,17 +138,15 @@ public class Run
                 Participante ppp = participantes.get(p);
                 if (ppp.getNome().compareTo(nomeParticipante)==0)
                 {
-                    for (String inicio : geoCaches.keys())
+                    for (PontoInteresse pontoInteresse1 : pontosInteresse)
                     {
-                        GeoCache gcc = geoCaches.get(inicio);
-                        if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoInicio)==0)
+                        if(pontoInteresse1.getNome().compareTo(nomeGeoInicio)==0)
                         {
-                            for (String fim : geoCaches.keys())
+                            for (PontoInteresse pontoInteresse2: pontosInteresse)
                             {
-                                GeoCache gccs = geoCaches.get(fim);
-                                if (gcc.getPontoInteresse().getNome().compareTo(nomeGeoFim)==0)
+                                if (pontoInteresse2.getNome().compareTo(nomeGeoFim)==0)
                                 {
-                                    TravelBug travelBug = new TravelBug(nomeTravel, gcc, gccs);
+                                    TravelBug travelBug = new TravelBug(nomeTravel, pontoInteresse1.getGeoCache(), pontoInteresse2.getGeoCache());
                                     travelBug.setParticipante(ppp);
                                     objetos.add(travelBug);
                                 }
@@ -156,9 +157,6 @@ public class Run
             }
         }
     }
-
-
-
 
     public static void createFile(){
         try{
