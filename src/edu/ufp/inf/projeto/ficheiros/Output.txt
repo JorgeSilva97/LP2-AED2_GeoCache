@@ -7,23 +7,27 @@
 2, Pedro, basic
 3
 norte, 7
-geocache1, BASIC, 41.1720859, -8.6148178, 3,  canudo,  livro,  oculos
-geocache2, BASIC, 41.1605747, -8.5855818, 3,  bola,  brinquedo,  camisola
-geocache3, BASIC, 41.1666825, -8.6751895, 3,  pedra,  flor,  areia
-geocache4, BASIC, 41.158881, -8.6337921, 1,  flauta
+geocache1, BASIC, 41.1720859, -8.6148178, 3, canudo, livro, oculos
+geocache2, BASIC, 41.1605747, -8.5855818, 3, bola, brinquedo, camisola
+geocache3, BASIC, 41.1666825, -8.6751895, 3, pedra, flor, areia
+geocache4, BASIC, 41.158881, -8.6337921, 1, flauta
 geocache5, PREMIUM, 41.1492281, -8.6120275, 0
 geocache6, BASIC, 41.1504982, -8.6654695, 0
-geocache7, BASIC, 41.2421226, -8.6807401, 1,  bilhetes_aviao
+geocache7, BASIC, 41.2421226, -8.6807401, 1, bilhetes_aviao
 centro, 5
-geocache8, BASIC, 40.2094433, -8.4208601, 2,  canudo,  capa
+geocache8, BASIC, 40.2094433, -8.4208601, 2, canudo, capa
 geocache9, BASIC, 40.2027321, -8.4333746, 0
-geocache10, PREMIUM, 40.188891, -8.410378, 2,  borracha,  chaves
-geocache11, BASIC, 40.6394116, -8.6621375, 1,  ovos_moles
-geocache12, BASIC, 40.6597787, -7.9136921, 1,  espada
+geocache10, PREMIUM, 40.188891, -8.410378, 2, borracha, chaves
+geocache11, BASIC, 40.6394116, -8.6621375, 1, ovos_moles
+geocache12, BASIC, 40.6597787, -7.9136921, 1, espada
 sul, 6
 geocache13, BASIC, 38.6942546, -9.2129457, 0
 geocache14, BASIC, 38.7288464, -9.1481854, 0
-geocache15, BASIC, 38.7756417, -9.1325313, 1,  bilhetes_aviao
+geocache15, BASIC, 38.7756417, -9.1325313, 1, bilhetes_aviao
 geocache16, PREMIUM, 38.7527152, -9.1869627, 0
 geocache17, BASIC, 38.7612341, -9.1639843, 0
 geocache18, BASIC, 38.9369329, -9.3290594, 0
+3
+travelbug1, Maria, geocache1, geocache15
+travelbug2, Pedro, geocache2, geocache17
+travelbug3, Filomena, geocache3, geocache12

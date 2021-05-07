@@ -107,7 +107,7 @@ public class Run
                         geoCaches.put(pontoInteresse.getNome(), geoCache);
                         for (int k=0; k <numObjetos; k++)
                         {
-                            String objeto = geoCachess[k+5];
+                            String objeto = geoCachess[k+5].trim();
                             Objeto o = new Objeto(objeto);
                             geoCache.getObjetos().add(o);
                             objetos.add(o);
@@ -120,7 +120,7 @@ public class Run
                         geoCaches.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
                         for (int k=0; k <numObjetos; k++)
                         {
-                            String objeto = geoCachess[k+5];
+                            String objeto = geoCachess[k+5].trim();
                             Objeto o = new Objeto(objeto);
                             geoCachePremium.getObjetos().add(o);
                             objetos.add(o);
@@ -205,7 +205,6 @@ public class Run
             ArrayList<PontoInteresse> norte = new ArrayList<>();
             ArrayList<PontoInteresse> centro = new ArrayList<>();
             ArrayList<PontoInteresse> sul = new ArrayList<>();
-
             for (PontoInteresse pi_aux : pontosInteresse){
                 if(pi_aux.getRegiao().compareTo("norte") == 0){
                     norte.add(pi_aux);
@@ -230,7 +229,8 @@ public class Run
             myWriter.write("centro, ");
             myWriter.write(String.valueOf(Integer.valueOf(centro.size())));
             myWriter.write("\n");
-            for(PontoInteresse ponto_aux1 : centro){
+            for(PontoInteresse ponto_aux1 : centro)
+            {
                 myWriter.write(ponto_aux1.getNome()+", "+ponto_aux1.getGeoCache().getTipoGeoCache()+", "
                         +ponto_aux1.getX()+", "+ponto_aux1.getY()+", ");
                 int tamanhoObjetos = ponto_aux1.getGeoCache().getObjetos().size();
@@ -242,7 +242,8 @@ public class Run
             myWriter.write("sul, ");
             myWriter.write(String.valueOf(Integer.valueOf(sul.size())));
             myWriter.write("\n");
-            for(PontoInteresse ponto_aux2 : sul){
+            for(PontoInteresse ponto_aux2 : sul)
+            {
                 myWriter.write(ponto_aux2.getNome()+", "+ponto_aux2.getGeoCache().getTipoGeoCache()+", "
                         +ponto_aux2.getX()+", "+ponto_aux2.getY()+", ");
                 int tamanhoObjetos = ponto_aux2.getGeoCache().getObjetos().size();
@@ -250,6 +251,20 @@ public class Run
                 for (Objeto o : ponto_aux2.getGeoCache().getObjetos())
                     myWriter.write( ", "+String.valueOf(o.getNome()));
                 myWriter.write("\n");
+            }
+            int k=0;
+            for (Objeto objeto : objetos)
+            {
+                if (objeto instanceof TravelBug)
+                    k++;
+            }
+            myWriter.write(String.valueOf(Integer.valueOf(k))+"\n");
+            for(Objeto objeto : objetos)
+            {
+                if (objeto instanceof TravelBug)
+                    myWriter.write(objeto.getNome()+", "+((TravelBug) objeto).getParticipante().getNome()+", " +
+                            ((TravelBug) objeto).getInicio().getPontoInteresse().getNome()+", "+
+                                ((TravelBug) objeto).getObjetivoFinal().getPontoInteresse().getNome()+"\n");
             }
             myWriter.close();
         }catch (IOException e){
