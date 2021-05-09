@@ -22,13 +22,13 @@ public class TravelBug extends Objeto
         this.inicio = inicio;
         this.objetivoFinal = objetivoFinal;
         Date d = new Date();
-        //addLog("Adicionado Participante: "+ this.nome +" com sucesso!", new Timestamp(d.getTime()).toString());
+        addLog("Adicionado TravelBug: "+ this.getNome() +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
     /**
-     *
-     * @param l
-     * @param dateTime
+     * funcao que adiciona logs
+     * @param l, string a adicionar
+     * @param dateTime, data do log
      */
     public void addLog (String l, String dateTime)
     {
@@ -43,7 +43,12 @@ public class TravelBug extends Objeto
        // System.out.println("Log adicionado com sucesso!");
     }
 
-
+    /**
+     * funcao que faz o update do travelBug
+     * @param geoCache
+     * @param participante
+     * @param insere, se tiver a true insere
+     */
     public void update(GeoCache geoCache, Participante participante, boolean insere)
     {
         if(insere)

@@ -8,14 +8,13 @@ public class PontoInteresse
     private String nome;
     private GeoCache geoCache;
 
-
-    public PontoInteresse(double x, double y, String regiao, GeoCache geoCache) {
-        this.x = x;
-        this.y = y;
-        this.regiao = regiao;
-        this.geoCache = geoCache;
-    }
-
+    /**
+     * Construtor da classe PontoInteresse com o nome
+     * @param x, coordenada x do ponto de interesse
+     * @param y, coordenada y do ponto de interesse
+     * @param regiao, regiao do ponto de interesse
+     * @param nome, nome do ponto de interesse
+     */
     public PontoInteresse(double x, double y, String regiao, String nome) {
         this.x = x;
         this.y = y;

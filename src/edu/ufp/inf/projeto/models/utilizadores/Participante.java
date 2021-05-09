@@ -19,6 +19,11 @@ public class Participante implements Serializable
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
+    /**
+     * Construtor da classe Participante
+     * @param id, id do participante
+     * @param nome, nome do participante
+     */
     public Participante(int id, String nome)
     {
         this.id = id;
@@ -29,9 +34,9 @@ public class Participante implements Serializable
 
 
     /**
-     *
-     * @param l
-     * @param dateTime
+     * funcao que adiciona logs
+     * @param l, string a adicionar
+     * @param dateTime, data do log
      */
     public void addLog (String l, String dateTime)
     {
@@ -46,6 +51,12 @@ public class Participante implements Serializable
         //System.out.println("Log adicionado com sucesso!");
     }
 
+    /**
+     * funcao que verifica se o participante visitou um GeoCache
+     * @param geoCache, geoCache a verificar
+     * @param objetosInseridos, array de objetos inseridos
+     * @param objetosRetirados, array de objetos retirados
+     */
     public void visitouGeo(GeoCache geoCache, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
         visitadas.add(geoCache);
