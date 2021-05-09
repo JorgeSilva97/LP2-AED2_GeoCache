@@ -20,8 +20,12 @@ public class GeoCache
     private ArrayList<Objeto> objetos = new ArrayList<>();
     private ST<String, ArrayList<String>> logs = new ST<>();
 
-
-
+    /**
+     * Construtor da classe GeoCache
+     * @param id, id da GeoCache
+     * @param pontoInteresse, ponto de interesse da GeoCache
+     * @param tipoGeoCache, tipo de GeoCache
+     */
     public GeoCache(int id, PontoInteresse pontoInteresse, TipoGeoCacheEnum tipoGeoCache)
     {
         this.id = id;
@@ -32,8 +36,7 @@ public class GeoCache
     }
 
     /**
-     *
-     * Adiciona Objeto à ArrayList
+     * funcao que adiciona Objeto à ArrayList
      * @param o objeto a adicionar
      */
     public void addObjeto (Objeto o)
@@ -53,8 +56,8 @@ public class GeoCache
     }
 
     /**
-     * Remove Objeto ao ArrayList
-     * @param o
+     * funcao que remove Objeto ao ArrayList
+     * @param o, objeto a ser removido
      */
     public void removeObjeto (Objeto o)
     {
@@ -73,6 +76,11 @@ public class GeoCache
         System.out.println("Objeto impossível de remover!");
     }
 
+    /**
+     * funcao que edita um objetom presente no array
+     * @param nome, novo nome do objeto
+     * @param o, objeto a ser editado
+     */
     public void editObjeto(String nome, Objeto o)
     {
         for(Objeto obj : this.objetos)
@@ -88,6 +96,9 @@ public class GeoCache
         }
     }
 
+    /**
+     * funcao que lista todos os objetos presentes no array
+     */
     public void listObjetos(){
         for(Objeto oi : this.objetos){
             System.out.println(oi.getNome());
@@ -95,7 +106,7 @@ public class GeoCache
     }
 
     /**
-     *
+     * funcao que adiciona logs
      * @param l
      * @param dateTime
      */
@@ -112,6 +123,12 @@ public class GeoCache
         //System.out.println("Log adicionado com sucesso!");
     }
 
+    /**
+     * funcao que verifica se a GeoCache foi visitada pelo Participante e se inseriu ou removeu objetos
+     * @param participante participante a visitar GeoCache
+     * @param objetosInseridos lista de objetos que foram inseridos
+     * @param objetosRetirados lista de objetos que foram removidos
+     */
     public void visitado(Participante participante, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
     {
         visitantes.add(participante);
@@ -132,6 +149,10 @@ public class GeoCache
         }
     }
 
+    /**
+     * funcao main para testes dos metodos da classe
+     * @param args
+     */
     public static void main(String[] args)
     {
         Objeto o = new Objeto("telemovel");

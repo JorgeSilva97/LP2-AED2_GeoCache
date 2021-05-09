@@ -11,6 +11,11 @@ public class AdminParticipante extends PremiumParticipante {
 
     private ArrayList<Participante> participantes = new ArrayList<>();
 
+    /**
+     * Construtor da classe AdminParticipante
+     * @param id, id do admin
+     * @param nome, nome do admin
+     */
     public AdminParticipante(int id, String nome)
     {
         super(id, nome);
@@ -19,7 +24,10 @@ public class AdminParticipante extends PremiumParticipante {
 
     }
 
-
+    /**
+     * Funcao que adiciona um participante a lista de participantes
+     * @param p, participante a ser adicionado
+     */
     public void addParticipante(Participante p)
     {
         for (Participante u : this.participantes)
@@ -36,6 +44,10 @@ public class AdminParticipante extends PremiumParticipante {
         addLog("Adicionado Participante: "+ p.getNome() +" com sucesso!", new Timestamp(d.getTime()).toString());
     }
 
+    /**
+     * Funcao que remove um participante da lista de participantes
+     * @param p, participante a ser adicionado
+     */
     public void removeParticipante(Participante p)
     {
         for (Participante u : this.participantes)
@@ -52,6 +64,11 @@ public class AdminParticipante extends PremiumParticipante {
         System.out.println("Participante impossivel de remover!");
     }
 
+    /**
+     * Funcao que edita um participante da lista de participantes
+     * @param nome, novo nome do participante
+     * @param p, participante a ser editado
+     */
     public void editParticipante(String nome, Participante p){
         for(Participante p_aux : this.participantes){
             if(p_aux.getNome().equals(p.getNome())){
@@ -64,6 +81,9 @@ public class AdminParticipante extends PremiumParticipante {
         }
     }
 
+    /**
+     * funcao que lista todos os participantes presentes no array
+     */
     public void listParticipante(){
         for(Participante pi : this.participantes){
             System.out.println(pi.getNome());
@@ -81,7 +101,10 @@ public class AdminParticipante extends PremiumParticipante {
         this.participantes = participantes;
     }
 
-
+    /**
+     * funcao main para testes de todos os metodos da classe
+     * @param args
+     */
     public static void main(String[] args) {
         Participante joaoSilva = new Participante(1,"Joao Silva");
         Participante franciscoCunha = new Participante(2,"Francisco Cunha");

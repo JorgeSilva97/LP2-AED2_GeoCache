@@ -14,7 +14,11 @@ public class PremiumParticipante extends Participante
 
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
-
+    /**
+     * Construtor da classe PremiumParticipante
+     * @param id, id do PremiumParticipante
+     * @param nome, nome do PremiumParticipante
+     */
     public PremiumParticipante(int id, String nome)
     {
         super(id, nome);
@@ -23,7 +27,7 @@ public class PremiumParticipante extends Participante
     }
 
     /**
-     * Adiciona GeoCache à ArrayList
+     * funcao que adiciona GeoCache à ArrayList
      * @param gc GeoCache a adicionar
      */
     public void addGeoCache(GeoCache gc)
@@ -42,8 +46,8 @@ public class PremiumParticipante extends Participante
     }
 
     /**
-     * Remove GeoCache ao ArrayList
-     * @param gc
+     * funcao que remove GeoCache ao ArrayList
+     * @param gc, GeoCache a ser removido
      */
     public void removeGeoCache(GeoCache gc)
     {
@@ -61,6 +65,12 @@ public class PremiumParticipante extends Participante
         System.out.println("GeoCache impossível de remover!");
     }
 
+    /**
+     * Funcao que edita a GeoCache da lista de GeoCaches
+     * @param pontoInteresse, novo ponto de interesse da Geocache
+     * @param tipoGeoCacheEnum, no tipo de GeoCache
+     * @param geoCache, geoCache a ser editado
+     */
     public void editGeoCache(PontoInteresse pontoInteresse, TipoGeoCacheEnum tipoGeoCacheEnum, GeoCache geoCache){
         for(GeoCache geo : this.geoCaches){
            if(geo.getPontoInteresse().getNome().equals(geoCache.getPontoInteresse().getNome()) && geo.getPontoInteresse().getRegiao().equals(geoCache.getPontoInteresse().getRegiao()) && geo.getPontoInteresse().getX() == geoCache.getPontoInteresse().getX() && geo.getPontoInteresse().getY() == geoCache.getPontoInteresse().getY() && geo.getTipoGeoCache().equals(geoCache.getTipoGeoCache())){
@@ -77,6 +87,9 @@ public class PremiumParticipante extends Participante
         }
     }
 
+    /**
+     * funcao que lista todas as GeoCaches do array
+     */
     public void listGeoCache(){
         for(GeoCache geoCache : this.geoCaches){
             System.out.println(geoCache.getPontoInteresse().getRegiao());
@@ -87,7 +100,10 @@ public class PremiumParticipante extends Participante
         }
     }
 
-
+    /**
+     * funcao main para testes dos metodos da classe
+     * @param args
+     */
     public static void main(String[] args) {
         PontoInteresse pi1 = new PontoInteresse(3.4,2.6,"norte","GeoCache1");
         PontoInteresse pi2 = new PontoInteresse(2.7,8.9,"sul","GeoCache2");
