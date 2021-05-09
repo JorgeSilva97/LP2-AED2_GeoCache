@@ -1,0 +1,34 @@
+
+Info. sobre o input:
+o ficheiro de input é composto por:
+  - nº utilizadores
+     seguem-se os utilizadores, um por linha, [id, nome, tipo de utilizador]
+  - nº regioes:
+  - nome da região, nº de geocaches
+  - seguem-se as geocaches nesta região, um por linha.
+   as geocaches estão dispostas como: id, x, y, nºobjectos, nome_objecto 0..* separados por ','
+  - nº ligações entre geocaches:
+  - ligação por linha: geocache_inicial, geocache_final, distancia em km, tempo de viagem entre geocaches
+  - nº travelbugs
+  um travelbug por linha com id, nome do user que o criou, geocache inicial, geocache destino  
+
+Tarefa:
+ - ler e guardar a informação no ficheiro de input
+ - colocar/validar a seguinte informação:
+ - o Manuel visita as geocaches 1, 2, 6, 8, 13, 16, 17 ao passar na geocache2 tirou o travelbug2. Ao passar na geocache 17 deixou o travelbug2.
+ - o Pedro visita as geocaches 18, 13, 8 ao passar na geocache 8 tirou a capa
+ - o Fernando visita as geocaches 12, 11, 10, 8, 9, 5, 6, 4, 3, 2, 1, 7, 15, 17, 18, 13. Ao passar na geocache1 tirou o travelbug1. Ao passar na geocache 15 deixou ficar o travelbug1.
+ - a Joana visita as geocaches 14, 15, 18, 17, 13 
+ - a Maria visita as geocaches 3, 8, 9, 10, 16, 11, 12. Ao passar na geocache 3 tirou o travelbug3. Ao passar na geocache12 deixou ficar o travelbug3.
+ - a Filomena visita as geocaches 5, 6, 7, 3, 2, 1, 8, 13
+ - listar todas as geocaches, items atuais, users, geocaches visitadas por cada user, geocaches não visitadas por cada user,
+todos os utilizadores que visitaram a geocache6, todas as geocaches premium com pelo menos um objecto, top-5 de utilizadores que visitaram maior nº de caches,travel bugs com maior número de localizações percorridas no seu histórico
+ - remover o user Pedro
+ - remover as geocaches 4, 8, 18
+ - listar todas as geocaches, items atuais, users, geocaches visitadas por cada user, geocaches não visitadas por cada user,
+todos os utilizadores que visitaram a geocache6, todas as geocaches premium com pelo menos um objecto, top-5 de utilizadores que visitaram maior nº de caches,travel bugs com maior número de localizações percorridas no seu histórico
+ - listar os logs dos travelbugs
+
+
+Erros:
+O Manuel sendo um Basic user, não devia ter acesso à geocache16.

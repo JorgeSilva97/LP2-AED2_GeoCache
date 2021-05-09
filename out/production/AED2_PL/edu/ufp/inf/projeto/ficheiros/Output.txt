@@ -1,0 +1,17 @@
+6
+3, Fernando, admin
+6, Filomena, admin
+4, Joana, basic
+1, Manuel, basic
+5, Maria, premium
+2, Pedro, basic
+3
+norte, 7
+geocache1, BASIC, 41.1720859, -8.6148178
+0geocache2, BASIC, 41.1605747, -8.5855818
+0geocache3, BASIC, 41.1666825, -8.6751895
+0geocache4, BASIC, 41.158881, -8.6337921
+0geocache5, PREMIUM, 41.1492281, -8.6120275
+0geocache6, BASIC, 41.1504982, -8.6654695
+0geocache7, BASIC, 41.2421226, -8.6807401
+0
