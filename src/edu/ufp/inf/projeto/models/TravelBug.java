@@ -13,7 +13,6 @@ public class TravelBug extends Objeto
     private ST<String, ArrayList<String>> logs = new ST<>();
     private GeoCache inicio;
     private GeoCache objetivoFinal;
-    private Participante participante;
 
 
     public TravelBug(String nome, GeoCache inicio, GeoCache objetivoFinal)
@@ -66,37 +65,5 @@ public class TravelBug extends Objeto
             }
 
         }
-    }
-
-    public ST<String, ArrayList<String>> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(ST<String, ArrayList<String>> logs) {
-        this.logs = logs;
-    }
-
-    public GeoCache getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(GeoCache inicio) {
-        this.inicio = inicio;
-    }
-
-    public GeoCache getObjetivoFinal() {
-        return objetivoFinal;
-    }
-
-    public void setObjetivoFinal(GeoCache objetivoFinal) {
-        this.objetivoFinal = objetivoFinal;
-    }
-
-    public Participante getParticipante() {
-        return participante;
-    }
-
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
     }
 }

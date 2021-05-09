@@ -109,7 +109,7 @@ public class GeoCache
             lg.add(l);
             logs.put(dateTime, lg);
         }
-        System.out.println("Log adicionado com sucesso!");
+        //System.out.println("Log adicionado com sucesso!");
     }
 
     public void visitado(Participante participante, ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
@@ -158,7 +158,7 @@ public class GeoCache
     }
 
 
-    @Override
+   /* @Override
     public String toString()
     {
         for(Objeto o : this.objetos)
@@ -172,6 +172,16 @@ public class GeoCache
 
         }
         return null;
+    }*/
+
+    @Override
+    public String toString() {
+        return "GeoCache{" +
+                "id=" + id +
+                ", pontoInteresse=" + pontoInteresse +
+                ", tipoGeoCache=" + tipoGeoCache +
+                ", criadorPremiumParticipante=" + criadorPremiumParticipante +
+                '}';
     }
 
     public PremiumParticipante getCriadorPremiumParticipante() {
