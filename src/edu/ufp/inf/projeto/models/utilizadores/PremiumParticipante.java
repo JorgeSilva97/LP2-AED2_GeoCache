@@ -11,6 +11,9 @@ import java.util.Date;
 public class PremiumParticipante extends Participante
 {
 
+    /**
+     * Array de GeoCaches que Premium adicionou/removeu/editou
+     */
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();
 
     /**

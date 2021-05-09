@@ -11,6 +11,15 @@ import java.util.Objects;
 public class GeoCache
 {
 
+    /**
+     * identificador da GeoCache
+     * PontoInteresse onde esta se encontra
+     * dificuldade da GeoCache ser encontrada
+     * tipo diferente de GeoCachr
+     * Array de todos os Participantes que visitaram esta GeoCache
+     * Array de todos os Objetos que se encontram nesta GeoCache
+     * ST de logs efectuados pela GeoCache
+     */
     private int id;
     private PontoInteresse pontoInteresse;
     private int dificuldade;

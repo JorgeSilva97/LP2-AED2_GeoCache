@@ -7,6 +7,9 @@ import java.util.Date;
 public class AdminParticipante extends PremiumParticipante
 {
 
+    /**
+     * Array de Participantes que Admin adicionou/removeu/editou
+     */
     private ArrayList<Participante> participantes = new ArrayList<>();
 
     /**

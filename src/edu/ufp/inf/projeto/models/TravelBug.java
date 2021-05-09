@@ -10,6 +10,12 @@ import java.util.Date;
 public class TravelBug extends Objeto
 {
 
+    /**
+     * ST de logs efectuados pelo TravelBug
+     * GeoCache inicio onde o Objeto se encontra
+     * GeoCache objetivoFinal missao onde o Objeto deve ser colocado
+     * Participante que move o Objeto
+     */
     private ST<String, ArrayList<String>> logs = new ST<>();
     private GeoCache inicio;
     private GeoCache objetivoFinal;

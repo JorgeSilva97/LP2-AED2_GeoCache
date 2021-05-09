@@ -16,7 +16,10 @@ public class Run
 {
 
     /**
-     *
+     * Array de todos os PontosInteresse que existem
+     * Array de todos os Objetos que existem
+     * ReadBlack de todos as GeoCache que exitem (ordenados alfabeticamente pelo nome do PontoInteresse)
+     * ReadBlack de todos os Participantes que exitem (ordenados alfabeticamente pelo seu nome)
      */
     private static ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
     private static ArrayList<Objeto> objetos = new ArrayList<>();
@@ -50,7 +53,7 @@ public class Run
     }
 
     /**
-     * funcao que faz lê do ficheiro input toda a informação dele
+     * funcao que faz le do ficheiro input toda a informacao dele e guarda nas respetivas ST e Arrays
      * @param path
      */
     public static void loadFromFile(String path)
@@ -161,8 +164,8 @@ public class Run
     }
 
     /**
-     *
-     * @param path
+     * funcao que cria o ficheiro para depois podermos escrever para este ficheiro
+     * @param path, caminho ate ao ficheiro
      */
     public static void createFile(String path)
     {
@@ -181,8 +184,8 @@ public class Run
     }
 
     /**
-     *
-     * @param path
+     * funcao que escreve para o ficheiro output toda a informacao guardada nas ST e Arrays
+     * @param path, caminho do ficheiro output
      */
     public static void writeToFile(String path){
         try
@@ -288,11 +291,11 @@ public class Run
     }
 
     /**
-     *
-     * @param geoCache que é visitada
-     * @param participante que visita a GeoCache
-     * @param objetosInseridos objetos a adicionar à GeoCache
-     * @param objetosRetirados objetos a retirar à GeoCache
+     * funcao que verifica se um participante visitou a GeoCache
+     * @param geoCache, geoCache a verificar
+     * @param participante, participante a verificar
+     * @param objetosInseridos, array de objetos inseridos na GeoCache
+     * @param objetosRetirados, array de objetos retirados na Geocache
      */
     public static void visitaGeoCache (GeoCache geoCache, Participante participante,
                                    ArrayList<Objeto> objetosInseridos, ArrayList<Objeto> objetosRetirados)
@@ -307,8 +310,8 @@ public class Run
     }
 
     /**
-     *
-     * @return
+     * funcao que verifica os participantes mais ativos
+     * @return arraylist desses participantes
      */
     public ArrayList<Participante> participantesMaisAtivos()
     {
@@ -341,9 +344,9 @@ public class Run
     }
 
     /**
-     *
-     * @param p
-     * @return
+     * funcao que verifica as GeoCaches que foram visitadas pelos participantes
+     * @param p participante a verificar
+     * @return arraylist de todas as GeoCaches visitadas pelo participante
      */
     public ArrayList<GeoCache> GeoCachesVisitadas(Participante p)
     {
@@ -351,8 +354,8 @@ public class Run
     }
 
     /**
-     *
-     * @return
+     * funcao que retorna a as CachePremium com mais do que um ojeto
+     * @return arraylist dessas CachePremium
      */
     public ArrayList<GeoCache> CachesPremiumComMaisUmObjeto()
     {
@@ -371,7 +374,7 @@ public class Run
     }
 
     /**
-     *
+     * funcao que lista todas as GeoCaches presentes na ST
      */
     public static void listGeoCache()
     {
@@ -385,7 +388,7 @@ public class Run
     }
 
     /**
-     *
+     * funcao que lista todas os Participantes presentes na ST
      */
     public static void listParticipante()
     {
@@ -398,7 +401,7 @@ public class Run
     }
 
     /**
-     *
+     * funcao que lista todas os objetos presentes no Array
      */
     public static void listObjetos()
     {
@@ -409,7 +412,7 @@ public class Run
     }
 
     /**
-     *
+     * funcao que lista todas os Pontos de Interesses presentes no Array
      */
     public static void listPontosInteresse()
     {

@@ -13,6 +13,13 @@ import java.util.Date;
 public class Participante implements Serializable
 {
 
+    /**
+     * identificador do participante
+     * nome do participante
+     * Array de GeoCaches que o participante ja visitou
+     * Array de Objetos que o participante adicionou/removeu
+     * ST de todos os logs efectuados pelo participante
+     */
     private int id;
     private String nome;
     private ArrayList<GeoCache> visitadas = new ArrayList<>();

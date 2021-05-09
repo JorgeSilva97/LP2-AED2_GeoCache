@@ -2,6 +2,13 @@ package edu.ufp.inf.projeto.models;
 
 public class PontoInteresse
 {
+    /**
+     * coordenada x de onde se encontra
+     * coordenada y de onde se encontra
+     * nome da regiao
+     * nome do PontoInteresse
+     * GeoCache que se encontra no PontoInteresse
+     */
     private double x;
     private double y;
     private String regiao;
