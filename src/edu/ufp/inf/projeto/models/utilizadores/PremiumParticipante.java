@@ -2,7 +2,7 @@ package edu.ufp.inf.projeto.models.utilizadores;
 
 import edu.ufp.inf.projeto.models.GeoCache;
 import edu.ufp.inf.projeto.models.PontoInteresse;
-import edu.ufp.inf.projeto.models.TipoGeoCacheEnum;
+import edu.ufp.inf.projeto.models.enumerados.TipoGeoCacheEnum;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

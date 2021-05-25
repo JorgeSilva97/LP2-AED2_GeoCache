@@ -1,6 +1,8 @@
 package edu.ufp.inf.projeto.models;
 
-public class PontoInteresse
+import java.io.Serializable;
+
+public class PontoInteresse implements Serializable
 {
     /**
      * coordenada x de onde se encontra
@@ -9,6 +11,7 @@ public class PontoInteresse
      * nome do PontoInteresse
      * GeoCache que se encontra no PontoInteresse
      */
+    private int vertexId = -1;
     private double x;
     private double y;
     private String regiao;
@@ -34,7 +37,27 @@ public class PontoInteresse
 
 
 
+    public double getDistanciaParaOutroPontoInteresse(PontoInteresse pi)
+    {
+        return Math.sqrt((pi.getY() - this.y) * (pi.getY() - this.y) + (pi.getX() - this.x) * (pi.getX() - this.x));
+    }
 
+    public double getDistanciaFromCoordenada(int x , int y)
+    {
+        return Math.sqrt((y - this.y) * (y - this.y) + (x - this.x) * (x - this.x));
+    }
+
+
+    public int getVertexId()
+    {
+        if (this.vertexId == -1)
+            System.out.println("vertexId não definido, logo sub-graph não está criado");
+        return vertexId;
+    }
+
+    public void setVertexId(int vertexId) {
+        this.vertexId = vertexId;
+    }
 
     public double getX() {
         return x;

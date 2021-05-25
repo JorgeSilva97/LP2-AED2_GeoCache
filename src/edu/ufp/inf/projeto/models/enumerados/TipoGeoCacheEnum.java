@@ -1,4 +1,4 @@
-package edu.ufp.inf.projeto.models;
+package edu.ufp.inf.projeto.models.enumerados;
 
 public enum TipoGeoCacheEnum
 {

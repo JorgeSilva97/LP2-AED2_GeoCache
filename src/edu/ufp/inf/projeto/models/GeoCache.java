@@ -1,6 +1,7 @@
 package edu.ufp.inf.projeto.models;
 
 import edu.princeton.cs.algs4.ST;
+import edu.ufp.inf.projeto.models.enumerados.TipoGeoCacheEnum;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 import java.sql.Timestamp;

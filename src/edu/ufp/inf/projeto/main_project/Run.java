@@ -3,6 +3,7 @@ package edu.ufp.inf.projeto.main_project;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.projeto.models.*;
+import edu.ufp.inf.projeto.models.enumerados.TipoGeoCacheEnum;
 import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
