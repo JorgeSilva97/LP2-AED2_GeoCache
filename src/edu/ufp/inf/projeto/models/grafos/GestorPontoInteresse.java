@@ -1,7 +1,9 @@
 package edu.ufp.inf.projeto.models.grafos;
 
+import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
+import edu.princeton.cs.algs4.StdOut;
 import edu.ufp.inf.projeto.models.PontoInteresse;
 import edu.ufp.inf.projeto.models.enumerados.CustoEnum;
 
@@ -65,5 +67,110 @@ public class GestorPontoInteresse implements Serializable
             return new SubGrafo(dEdges, minIndex, maxIndex, this);
         }
         return null;
+    }
+
+    public void printSubGrafo(ArrayList<DirectedEdge> subGarfo)
+    {
+        for (DirectedEdge directedEdge : subGarfo)
+            System.out.println(directedEdge.toString());
+    }
+
+    public void createEdge (int source, int dest, double distancia, double custoTempo)
+    {
+        Conexao conexao = new Conexao(source, dest, distancia, custoTempo);
+        if (this.grafoGlobal != null)
+        {
+            this.grafoGlobal.addEdge(conexao);
+            System.out.println("Uma conexão de " +source+" para "+dest+" com distancia "+distancia+
+                    " e com custo "+custoTempo+" foi adicionado com sucesso ao grafo!");
+        }
+    }
+
+    public double calculaPeso (PontoInteresse source, PontoInteresse dest)
+    {
+        return source.getDistanciaParaOutroPontoInteresse(dest);
+    }
+
+    public void addPontoInteresse (PontoInteresse pontoInteresse)
+    {
+        if (!this.pontoInteresses.contains(pontoInteresse))
+        {
+            pontoInteresse.setVertexId(this.pontoInteresses.size());
+            this.pontoInteresses.add(pontoInteresse);
+            System.out.println("Ponto de Interesse adicionado com sucesso aos pontosInteresse");
+        }
+        System.out.println("Ponto de Interesse já existe");
+    }
+
+    public void caminhoMaisCurtoEntre (int source, int dest, EdgeWeightedDigraph grafo, int offset, CustoEnum custo)
+    {
+        custoEnum = custo;
+        DijkstraSP dijkstraSP = new DijkstraSP(grafo, source-offset);
+        if (dijkstraSP.hasPathTo(dest-offset))
+        {
+            StdOut.printf("%d para %d (%.2f) ", source, dest, dijkstraSP.distTo(dest-offset));
+            for (DirectedEdge e : dijkstraSP.pathTo(dest-offset))
+            {
+                StdOut.print((e.from()+offset)+"->"+(e.to()+offset)+" " +String.format("%5.2f", e.weight())+"\n");
+            }
+        }
+        else
+            StdOut.printf("%d to %d         no path\n", source + offset, dest + offset);
+    }
+
+    public ArrayList<PontoInteresse> retiraPontosInteresse (ArrayList<PontoInteresse> pontosInteresse,
+                                                            ArrayList<PontoInteresse> invalidosPontosInteresse)
+    {
+        ArrayList<PontoInteresse> piAux = new ArrayList<>();
+        for (PontoInteresse pi : pontosInteresse)
+        {
+            if (!invalidosPontosInteresse.contains(pi))
+                piAux.add(pi);
+        }
+        return piAux;
+    }
+
+    public PontoInteresse getPontoInteresseMaisProximo (int x, int y)
+    {
+        PontoInteresse qualquer = pontoInteresses.get(0);
+        double min = pontoInteresses.get(0).getDistanciaFromCoordenada(x, y);
+        for (PontoInteresse pi : this.pontoInteresses)
+        {
+            double distancia = pi.getDistanciaFromCoordenada(x, y);
+            if (distancia <= min)
+            {
+                min = distancia;
+                qualquer = pi;
+            }
+        }
+        return qualquer;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public EdgeWeightedDigraph getGrafoGlobal() {
+        return grafoGlobal;
+    }
+
+    public void setGrafoGlobal(EdgeWeightedDigraph grafoGlobal) {
+        this.grafoGlobal = grafoGlobal;
+    }
+
+    public ArrayList<PontoInteresse> getPontoInteresses() {
+        return pontoInteresses;
+    }
+
+    public void setPontoInteresses(ArrayList<PontoInteresse> pontoInteresses) {
+        this.pontoInteresses = pontoInteresses;
     }
 }
