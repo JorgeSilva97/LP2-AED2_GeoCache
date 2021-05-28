@@ -1,7 +1,6 @@
 package edu.ufp.inf.projeto.models.grafos;
 
 import edu.princeton.cs.algs4.DirectedEdge;
-import edu.ufp.inf.projeto.models.PontoInteresse;
 import edu.ufp.inf.projeto.models.enumerados.CustoEnum;
 
 public class Conexao extends DirectedEdge

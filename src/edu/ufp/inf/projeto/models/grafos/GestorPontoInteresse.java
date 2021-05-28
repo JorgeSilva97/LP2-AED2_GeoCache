@@ -16,6 +16,9 @@ public class GestorPontoInteresse implements Serializable
     private ArrayList<PontoInteresse> pontoInteresses;
     protected static CustoEnum custoEnum = CustoEnum.DISTANCIA;
 
+    public GestorPontoInteresse(ArrayList<PontoInteresse> pontoInteresses) {
+        this.pontoInteresses = pontoInteresses;
+    }
 
     public void criaGrafoGlobal()
     {

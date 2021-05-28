@@ -1,9 +1,11 @@
 package edu.ufp.inf.projeto.main_project;
 
+import edu.princeton.cs.algs4.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.projeto.models.*;
 import edu.ufp.inf.projeto.models.enumerados.TipoGeoCacheEnum;
+import edu.ufp.inf.projeto.models.grafos.GestorPontoInteresse;
 import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
@@ -36,11 +38,9 @@ public class Run
 
         System.out.println("\t\tMAIN");
 
-        String path = "...//ficheiros//InputSemGrafos.txt";
-        String path_cunha_criar = "/Users/franciscocunha/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/Output.txt";
-        String path_jorge = "/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt";
-        String path_jorge_criar = "/Users/jorgesilva/Desktop/FAC/2_SEMESTRE/LP2_AED 2/code/src/edu/ufp/inf/projeto/ficheiros/Output.txt";
-        loadFromFile(path_jorge);
+        String path = "src/edu/ufp/inf/projeto/ficheiros/InputComGrafos.txt";
+
+        loadFromFile(path);
         System.out.println("\tGEO CACHES");
         listGeoCache();
         System.out.println("\tPARTICIPANTES");
@@ -50,7 +50,8 @@ public class Run
         System.out.println("\tPONTOS DE INTERESSE");
         listPontosInteresse();
         //createFile(path_jorge_criar);
-        writeToFile(path_jorge_criar);
+        System.out.println(System.getProperty("user.dir"));
+        //writeToFile(path_jorge);
     }
 
     /**
@@ -100,6 +101,7 @@ public class Run
                 double coordenadaY = Double.parseDouble(y);
                 int numObjetos = Integer.parseInt(geoCachess[4].trim());
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
+                pontoInteresse.setVertexId(j+1);
                 switch (tipoG.trim())
                 {
                     case "basic":
@@ -158,6 +160,34 @@ public class Run
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+        String numeroLigacoes = in.readLine();
+        for (int x=0; x<Integer.parseInt(numeroLigacoes); x++)
+        {
+            String[] ligacoes = in.readLine().split(",");
+            String ligacaoUm = ligacoes[0];
+            String ligacaoDois = ligacoes[1].trim();
+            Double distancia = Double.parseDouble(ligacoes[2].trim());
+            Double tempo = Double.parseDouble(ligacoes[3].trim());
+            ArrayList<PontoInteresse> pontoInteresses = new ArrayList<>();
+            GestorPontoInteresse gestorPontoInteresse = new GestorPontoInteresse(pontosInteresse);
+            gestorPontoInteresse.criaGrafoGlobal();
+            //EdgeWeightedDigraph grafo = gestorPontoInteresse.getGrafoGlobal();
+            for (String gcUm : geoCaches.keys())
+            {
+                GeoCache geoUm = geoCaches.get(gcUm);
+                if (geoUm.getPontoInteresse().getNome().compareTo(ligacaoUm)==0)
+                {
+                    for (String gcDois : geoCaches.keys())
+                    {
+                        GeoCache geoDois = geoCaches.get(gcDois);
+                        if (geoDois.getPontoInteresse().getNome().compareTo(ligacaoDois)==0)
+                            gestorPontoInteresse.createEdge(geoUm.getPontoInteresse().getVertexId(),
+                                    geoDois.getPontoInteresse().getVertexId(), distancia, tempo);
+
                     }
                 }
             }
