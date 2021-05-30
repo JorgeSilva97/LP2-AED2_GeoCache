@@ -3,11 +3,12 @@ package edu.ufp.inf.projeto.models;
 import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TravelBug extends Objeto
+public class TravelBug extends Objeto implements Serializable
 {
 
     private ST_Proj<String, ArrayList<String>> logs = new ST_Proj<>();

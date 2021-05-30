@@ -12,6 +12,13 @@ public class Objeto implements Serializable
         this.nome = nome;
     }
 
+    @Override
+    public String toString() {
+        return "Objeto{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
+
     public String getNome() {
         return nome;
     }

@@ -29,12 +29,21 @@ public class Run {
         System.out.println("\t\tMAIN");
 
         String PATH_GEOCACHES_BIN = "/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/data_geocaches.bin";
+        String PATH_PONNTOINTERESSE_BIN = "/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/data_pontosInteresse.bin";
+        String PATH_OBJETOS_BIN = "/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/data_objetos.bin";
+        String PATH_PARTICIPANTES_BIN = "/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/data_participantes.bin";
 
         loadFromFile("/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt");
 
 
-        saveBinGeocaches(geoCaches, PATH_GEOCACHES_BIN);
-        readBinGeoCaches(geoCaches, PATH_GEOCACHES_BIN);
+        //saveBinGeocaches(geoCaches, PATH_GEOCACHES_BIN);
+        //readBinGeoCaches(geoCaches, PATH_GEOCACHES_BIN);
+        //saveBinPontoInteresse(pontosInteresse,PATH_PONNTOINTERESSE_BIN);
+        //readPontoInteresse(pontosInteresse,PATH_PONNTOINTERESSE_BIN);
+        //saveBinObjetos(objetos,PATH_OBJETOS_BIN);
+        //readBinObjetos(objetos,PATH_OBJETOS_BIN);
+        saveBinParticipantes(participantes,PATH_PARTICIPANTES_BIN);
+        readBinParticipantes(participantes,PATH_PARTICIPANTES_BIN);
         //listGeoCache();
     }
 
@@ -151,27 +160,53 @@ public class Run {
         }
     }
 
-    //TODO
-    /*
-    public static void saveBinPontoInteresse(ArrayList<PontoInteresse> pontosInteresse, String path) {
+    public static void saveBinPontoInteresse(ArrayList<PontoInteresse>pontosInteresse, String path){
         File f = new File(path);
-        try {
+        try{
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeObject(pontosInteresse.size());
-            for (PontoInteresse pp : pontosInteresse) {
-                PontoInteresse p_aux = pontosInteresse.get(pp.);
-                oos.writeObject(geoCache);
+            for(PontoInteresse pp : pontosInteresse){
+                oos.writeObject(pp);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-*/
+    public static void saveBinObjetos(ArrayList<Objeto>Objetos, String path) {
+        File f = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-    private static void readBinGeoCaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
+            oos.writeObject(objetos.size());
+            for (Objeto objeto : objetos) {
+                oos.writeObject(objeto);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveBinParticipantes(RedBlackBST<String, Participante> participantesST, String path) {
+        File f = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(participantesST.size());
+            for (String nome : participantesST.keys()) {
+                Participante participante = participantesST.get(nome);
+                oos.writeObject(participante);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readBinParticipantes(RedBlackBST<String, Participante> participantesST, String path) {
         File f = new File(path);
         try {
             FileInputStream fis = new FileInputStream(f);
@@ -180,9 +215,9 @@ public class Run {
 
             System.out.println(size);
             for (int i = 0; i < size; i++) {
-                GeoCache geoCache = (GeoCache) ois.readObject();
-                System.out.println("geocache---" + geoCache);
-                geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+                Participante participante = (Participante) ois.readObject();
+                System.out.println("participante---" + participante);
+                participantesST.put(participante.getNome(),participante);
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -190,24 +225,25 @@ public class Run {
         }
     }
 
-    private static void readBinGeoCaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
-        File f = new File(path);
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            Integer size = (Integer) ois.readObject();
 
-            System.out.println(size);
-            for (int i = 0; i < size; i++) {
-                GeoCache geoCache = (GeoCache) ois.readObject();
-                System.out.println("geocache---" + geoCache);
-                geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+        private static void readBinGeoCaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
+            File f = new File(path);
+            try {
+                FileInputStream fis = new FileInputStream(f);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                Integer size = (Integer) ois.readObject();
+
+                System.out.println(size);
+                for (int i = 0; i < size; i++) {
+                    GeoCache geoCache = (GeoCache) ois.readObject();
+                    System.out.println("geocache---" + geoCache);
+                    geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+                }
+
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
-    }
 
     private static void readPontoInteresse(ArrayList<PontoInteresse> pontosInteresse, String path) {
         File f = new File(path);
@@ -218,11 +254,28 @@ public class Run {
 
             System.out.println(size);
             for (int i = 0; i < size; i++) {
-                GeoCache geoCache = (GeoCache) ois.readObject();
-                System.out.println("geocache---" + geoCache);
-               // geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+                PontoInteresse pontoInteresse = (PontoInteresse) ois.readObject();
+                System.out.println("pontoInteresse --- " + pontoInteresse);
+                pontosInteresse.add(pontoInteresse);
             }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private static void readBinObjetos(ArrayList<Objeto> objetos, String path) {
+        File f = new File(path);
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Integer size = (Integer) ois.readObject();
+
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                Objeto objeto = (Objeto) ois.readObject();
+                System.out.println("Objeto --- " + objeto);
+                objetos.add(objeto);
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

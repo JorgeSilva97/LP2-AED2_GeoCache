@@ -3,11 +3,12 @@ package edu.ufp.inf.projeto.models.utilizadores;
 import edu.ufp.inf.projeto.models.GeoCache;
 import edu.ufp.inf.projeto.models.Objeto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AdminParticipante extends PremiumParticipante {
+public class AdminParticipante extends PremiumParticipante implements Serializable {
 
     private ArrayList<Participante> participantes = new ArrayList<>();
 
