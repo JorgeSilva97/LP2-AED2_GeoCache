@@ -189,7 +189,7 @@ public class Run {
      */
     public static void addGeoCache(GeoCache geoCache){
         for(String gc : geoCaches.keys()){
-            if (geoCaches.get(gc).get_Id() == geoCache.get_Id()){
+            if (geoCaches.get(gc).getId() == geoCache.getId()){
                 return;
             }
         }
