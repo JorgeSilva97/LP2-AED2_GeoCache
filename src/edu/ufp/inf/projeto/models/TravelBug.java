@@ -10,7 +10,7 @@ import java.util.Date;
 public class TravelBug extends Objeto
 {
 
-    private ST<String, ArrayList<String>> logs = new ST<>();
+    private ST_Proj<String, ArrayList<String>> logs = new ST_Proj<>();
     private GeoCache inicio;
     private GeoCache objetivoFinal;
     private Participante participante;
@@ -73,11 +73,11 @@ public class TravelBug extends Objeto
         }
     }
 
-    public ST<String, ArrayList<String>> getLogs() {
+    public ST_Proj<String, ArrayList<String>> getLogs() {
         return logs;
     }
 
-    public void setLogs(ST<String, ArrayList<String>> logs) {
+    public void setLogs(ST_Proj<String, ArrayList<String>> logs) {
         this.logs = logs;
     }
 

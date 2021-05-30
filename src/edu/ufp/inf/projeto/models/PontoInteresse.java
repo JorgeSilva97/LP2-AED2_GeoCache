@@ -1,6 +1,8 @@
 package edu.ufp.inf.projeto.models;
 
-public class PontoInteresse
+import java.io.Serializable;
+
+public class PontoInteresse implements Serializable
 {
     private double x;
     private double y;
@@ -37,6 +39,13 @@ public class PontoInteresse
     }
 
     public PontoInteresse() {
+    }
+
+    @Override
+    public String toString() {
+        return "PontoInteresse{" +
+                "nome='" + nome + '\'' +
+                '}';
     }
 
     public String getNome() {

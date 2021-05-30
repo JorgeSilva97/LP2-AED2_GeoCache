@@ -5,11 +5,12 @@ import edu.ufp.inf.projeto.models.GeoCache;
 import edu.ufp.inf.projeto.models.PontoInteresse;
 import edu.ufp.inf.projeto.models.TipoGeoCacheEnum;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PremiumParticipante extends Participante
+public class PremiumParticipante extends Participante implements Serializable
 {
 
     private ArrayList<GeoCache> geoCaches = new ArrayList<>();

@@ -1,6 +1,8 @@
 package edu.ufp.inf.projeto.models;
 
-public enum TipoGeoCacheEnum
+import java.io.Serializable;
+
+public enum TipoGeoCacheEnum implements Serializable
 {
     BASIC,
     PREMIUM

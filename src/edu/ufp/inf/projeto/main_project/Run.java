@@ -8,13 +8,10 @@ import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
-public class Run
-{
+public class Run {
 
     private static ArrayList<PontoInteresse> pontosInteresse = new ArrayList<>();
     private static ArrayList<Objeto> objetos = new ArrayList<>();
@@ -22,36 +19,39 @@ public class Run
     private static RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
 
 
-
-
-
-
-
     /**
      * Main function
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
         System.out.println("\t\tMAIN");
+
+        String PATH_GEOCACHES_BIN = "/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/data_geocaches.bin";
+
+        loadFromFile("/home/francisco/IdeaProjects/LP2_AED2/src/edu/ufp/inf/projeto/ficheiros/InputSemGrafos.txt");
+
+
+        saveBinGeocaches(geoCaches, PATH_GEOCACHES_BIN);
+        readBinGeoCaches(geoCaches, PATH_GEOCACHES_BIN);
+        //listGeoCache();
     }
 
     /**
      * funcao que lê do ficheiro input toda a informação dele e guarda nas respetivas ST e Arrays
+     *
      * @param path
      */
-    public static void loadFromFile(String path)
-    {
+    public static void loadFromFile(String path) {
         In in = new In(path);
         String nParticipantes = in.readLine();
-        for(int i = 0; i < Integer.parseInt(nParticipantes); i++)
-        {
+        for (int i = 0; i < Integer.parseInt(nParticipantes); i++) {
             String[] temParticipante = in.readLine().split(",");
             int id = Integer.parseInt(temParticipante[0]);
             String nome = temParticipante[1].trim();
             String tipo = temParticipante[2];
-            switch (tipo.trim())
-            {
+            switch (tipo.trim()) {
                 case "premium":
                     PremiumParticipante premiumParticipante = new PremiumParticipante(id, nome);
                     participantes.put(premiumParticipante.getNome(), premiumParticipante);
@@ -67,13 +67,11 @@ public class Run
             }
         }
         String nRegioes = in.readLine();
-        for(int z = 0; z < Integer.parseInt(nRegioes); z++)
-        {
+        for (int z = 0; z < Integer.parseInt(nRegioes); z++) {
             String[] temRegioes = in.readLine().split(",");
-            String nomeRegiao =temRegioes[0];
+            String nomeRegiao = temRegioes[0];
             int numeroGeoCaches = Integer.parseInt(temRegioes[1].trim());
-            for (int j = 0; j < numeroGeoCaches; j++)
-            {
+            for (int j = 0; j < numeroGeoCaches; j++) {
                 String[] geoCachess = in.readLine().split(",");
                 String nomeG = geoCachess[0];
                 String tipoG = geoCachess[1];
@@ -83,16 +81,14 @@ public class Run
                 double coordenadaY = Double.parseDouble(y);
                 int numObjetos = Integer.parseInt(geoCachess[4].trim());
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
-                switch (tipoG.trim())
-                {
+                switch (tipoG.trim()) {
                     case "basic":
                         GeoCache geoCache = new GeoCache(j, pontoInteresse, TipoGeoCacheEnum.BASIC);
                         pontoInteresse.setGeoCache(geoCache);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(pontoInteresse.getNome(), geoCache);
-                        for (int k=0; k <numObjetos; k++)
-                        {
-                            String objeto = geoCachess[k+5].trim();
+                        for (int k = 0; k < numObjetos; k++) {
+                            String objeto = geoCachess[k + 5].trim();
                             Objeto o = new Objeto(objeto);
                             geoCache.getObjetos().add(o);
                             objetos.add(o);
@@ -103,9 +99,8 @@ public class Run
                         pontoInteresse.setGeoCache(geoCachePremium);
                         pontosInteresse.add(pontoInteresse);
                         geoCaches.put(geoCachePremium.getPontoInteresse().getNome(), geoCachePremium);
-                        for (int k=0; k <numObjetos; k++)
-                        {
-                            String objeto = geoCachess[k+5].trim();
+                        for (int k = 0; k < numObjetos; k++) {
+                            String objeto = geoCachess[k + 5].trim();
                             Objeto o = new Objeto(objeto);
                             geoCachePremium.getObjetos().add(o);
                             objetos.add(o);
@@ -115,26 +110,19 @@ public class Run
             }
         }
         String numeroTravelBugs = in.readLine();
-        for (int y = 0; y < Integer.parseInt(numeroTravelBugs); y++)
-        {
+        for (int y = 0; y < Integer.parseInt(numeroTravelBugs); y++) {
             String[] travelBugs = in.readLine().split(",");
             String nomeTravel = travelBugs[0];
             String nomeParticipante = travelBugs[1].trim();
             String nomeGeoInicio = travelBugs[2].trim();
             String nomeGeoFim = travelBugs[3].trim();
-            for (String p : participantes.keys())
-            {
+            for (String p : participantes.keys()) {
                 Participante ppp = participantes.get(p);
-                if (ppp.getNome().compareTo(nomeParticipante)==0)
-                {
-                    for (PontoInteresse pontoInteresse1 : pontosInteresse)
-                    {
-                        if(pontoInteresse1.getNome().compareTo(nomeGeoInicio)==0)
-                        {
-                            for (PontoInteresse pontoInteresse2: pontosInteresse)
-                            {
-                                if (pontoInteresse2.getNome().compareTo(nomeGeoFim)==0)
-                                {
+                if (ppp.getNome().compareTo(nomeParticipante) == 0) {
+                    for (PontoInteresse pontoInteresse1 : pontosInteresse) {
+                        if (pontoInteresse1.getNome().compareTo(nomeGeoInicio) == 0) {
+                            for (PontoInteresse pontoInteresse2 : pontosInteresse) {
+                                if (pontoInteresse2.getNome().compareTo(nomeGeoFim) == 0) {
                                     TravelBug travelBug = new TravelBug(nomeTravel, pontoInteresse1.getGeoCache(), pontoInteresse2.getGeoCache());
                                     travelBug.setParticipante(ppp);
                                     objetos.add(travelBug);
@@ -146,6 +134,100 @@ public class Run
             }
         }
     }
+
+    public static void saveBinGeocaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
+        File f = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(geoCachesST.size());
+            for (String nome : geoCachesST.keys()) {
+                GeoCache geoCache = geoCachesST.get(nome);
+                oos.writeObject(geoCache);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //TODO
+    /*
+    public static void saveBinPontoInteresse(ArrayList<PontoInteresse> pontosInteresse, String path) {
+        File f = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(pontosInteresse.size());
+            for (PontoInteresse pp : pontosInteresse) {
+                PontoInteresse p_aux = pontosInteresse.get(pp.);
+                oos.writeObject(geoCache);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+*/
+
+    private static void readBinGeoCaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
+        File f = new File(path);
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Integer size = (Integer) ois.readObject();
+
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                GeoCache geoCache = (GeoCache) ois.readObject();
+                System.out.println("geocache---" + geoCache);
+                geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readBinGeoCaches(RedBlackBST<String, GeoCache> geoCachesST, String path) {
+        File f = new File(path);
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Integer size = (Integer) ois.readObject();
+
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                GeoCache geoCache = (GeoCache) ois.readObject();
+                System.out.println("geocache---" + geoCache);
+                geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readPontoInteresse(ArrayList<PontoInteresse> pontosInteresse, String path) {
+        File f = new File(path);
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Integer size = (Integer) ois.readObject();
+
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                GeoCache geoCache = (GeoCache) ois.readObject();
+                System.out.println("geocache---" + geoCache);
+               // geoCachesST.put(geoCache.getPontoInteresse().getNome(), geoCache);
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * funcao que cria o ficheiro para depois podermos escrever para este ficheiro
@@ -166,7 +248,6 @@ public class Run
             e.printStackTrace();
         }
     }
-
     /**
      * uncao que escreve para o ficheiro output toda a informação guardada nas ST e Arrays
      * @param path, caminho do ficheiro output

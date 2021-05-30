@@ -3,12 +3,14 @@ package edu.ufp.inf.projeto.models;
 import edu.princeton.cs.algs4.ST;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class GeoCache
+public class GeoCache implements Serializable
 {
 
     private int id;
@@ -18,7 +20,7 @@ public class GeoCache
     private PremiumParticipante criadorPremiumParticipante;
     private ArrayList<Participante> visitantes = new ArrayList<>();
     private ArrayList<Objeto> objetos = new ArrayList<>();
-    private ST<String, ArrayList<String>> logs = new ST<>();
+    private ST_Proj<String, ArrayList<String>> logs = new ST_Proj<>();
 
     /**
      * Construtor da classe GeoCache
@@ -253,7 +255,7 @@ public class GeoCache
         this.objetos = objetos;
     }
 
-    public ST<String, ArrayList<String>> getLogs()
+    public ST_Proj<String, ArrayList<String>> getLogs()
     {
         for (String lg: this.logs.keys())
         {
@@ -262,7 +264,7 @@ public class GeoCache
         return logs;
     }
 
-    public void setLogs(ST<String, ArrayList<String>> logs) {
+    public void setLogs(ST_Proj<String, ArrayList<String>> logs) {
         this.logs = logs;
     }
 

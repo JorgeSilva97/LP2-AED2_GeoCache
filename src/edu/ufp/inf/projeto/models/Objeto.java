@@ -1,6 +1,8 @@
 package edu.ufp.inf.projeto.models;
 
-public class Objeto
+import java.io.Serializable;
+
+public class Objeto implements Serializable
 {
 
     private String nome;
