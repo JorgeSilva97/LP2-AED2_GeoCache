@@ -23,6 +23,10 @@ public class SubGrafo implements Serializable
     }
 
 
+    /**
+     * funcao que simula todas as arestas de um determinado dominio do grafico global
+     * @param directedEdges do grafo global
+     */
     private void addEdge (ArrayList<Conexao> directedEdges)
     {
         for(Conexao directedEdge : directedEdges)
@@ -33,6 +37,11 @@ public class SubGrafo implements Serializable
         }
     }
 
+    /**
+     * funcao que retorna o ponto de interesse de um dado vertice
+     * @param vertexId do ponto de interesse a procurar
+     * @return o ponto de interesse
+     */
     public PontoInteresse getPontoInteresseFromVertexId(int vertexId)
     {
         int globalVertexId = vertexId + this.offset;

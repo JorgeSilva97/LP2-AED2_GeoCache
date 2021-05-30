@@ -20,6 +20,9 @@ public class GestorPontoInteresse implements Serializable
         this.pontoInteresses = pontoInteresses;
     }
 
+    /**
+     * funcao que faz criacao um grafo
+     */
     public void criaGrafoGlobal()
     {
         if (!this.pontoInteresses.isEmpty())
@@ -29,6 +32,11 @@ public class GestorPontoInteresse implements Serializable
         }
     }
 
+    /**
+     * funcao que retorna o ponto de interesse com o vertexID
+     * @param vertexId de ponto de interesse a retornar
+     * @return o ponto de interesse do respetivo id
+     */
     public PontoInteresse getPontoInteresseWhereVertexIs (int vertexId)
     {
         for (PontoInteresse pontoInteresse : pontoInteresses)
@@ -39,6 +47,12 @@ public class GestorPontoInteresse implements Serializable
         return null;
     }
 
+    /**
+     * funcao que retorna todos as arestas de dominino de vertices
+     * @param primeiroVertex id mais pequeno desse sub grafo
+     * @param ultimoVertex id maior desse sub grafo
+     * @return todas as arestas presentes entre esse dominio de vertice
+     */
     public ArrayList<Conexao> getEdgesFrom (int primeiroVertex, int ultimoVertex)
     {
         ArrayList<Conexao> edges = new ArrayList<>();
@@ -52,6 +66,11 @@ public class GestorPontoInteresse implements Serializable
         return edges;
     }
 
+    /**
+     * funcao que gera sub grafo com todos os ponto de interesse
+     * @param pontoInteresses do sub grafo
+     * @return sub grafo com todos os pontos de interesse
+     */
     public SubGrafo getSubGrafoFromVertices (ArrayList<PontoInteresse> pontoInteresses)
     {
         if (!pontoInteresses.isEmpty())
@@ -72,6 +91,11 @@ public class GestorPontoInteresse implements Serializable
         return null;
     }
 
+    /**
+     * funcao que gera sub grafo com todas as geo caches PREMIUM
+     * @param pontoInteresses do sub grafo
+     * @return sub grafo de geo caches PREMIUM
+     */
     public SubGrafo getSubGrafoPremiumCaches (ArrayList<PontoInteresse> pontoInteresses)
     {
         if (!pontoInteresses.isEmpty())
@@ -95,6 +119,11 @@ public class GestorPontoInteresse implements Serializable
         return null;
     }
 
+    /**
+     * funcao que gera sub grafo com todas as geo caches BASIC
+     * @param pontoInteresses do sub grafo
+     * @return sub grafo de geo caches BASIC
+     */
     public SubGrafo getSubGrafoBasicCaches (ArrayList<PontoInteresse> pontoInteresses)
     {
         if (!pontoInteresses.isEmpty())
@@ -118,12 +147,16 @@ public class GestorPontoInteresse implements Serializable
         return null;
     }
 
+    /**
+     * funcao que calcula o maior vertexId presente
+     * @param pontoInteresses do sub grafo
+     * @return maior vertexId
+     */
     public int getMaiorVertex(ArrayList<PontoInteresse> pontoInteresses)
     {
         if (!pontoInteresses.isEmpty())
         {
             int maxIndex = pontoInteresses.get(0).getVertexId();
-            for (PontoInteresse pontoInteresse : pontoInteresses);
             for (PontoInteresse pontoInteresse : pontoInteresses)
             {
                 if (pontoInteresse.getVertexId() > maxIndex)
@@ -135,12 +168,23 @@ public class GestorPontoInteresse implements Serializable
 
     }
 
+    /**
+     * funcao que imprime DirectedEdge
+     * @param subGarfo a imprimir
+     */
     public void printSubGrafo(ArrayList<DirectedEdge> subGarfo)
     {
         for (DirectedEdge directedEdge : subGarfo)
             System.out.println(directedEdge.toString());
     }
 
+    /**
+     * funcao que cria ligacao
+     * @param source vertexId de origem
+     * @param dest vertexId de destino
+     * @param distancia entre os dois vertices
+     * @param custoTempo entre os dois vertices
+     */
     public void createEdge (int source, int dest, double distancia, double custoTempo)
     {
         Conexao conexao = new Conexao(source, dest, distancia, custoTempo);
@@ -152,11 +196,21 @@ public class GestorPontoInteresse implements Serializable
         }
     }
 
+    /**
+     * funcao que calcula o peso entre dois vertices baseados nas coordenadas do ponto de interesse
+     * @param source ponto de interesse
+     * @param dest
+     * @return
+     */
     public double calculaPeso (PontoInteresse source, PontoInteresse dest)
     {
         return source.getDistanciaParaOutroPontoInteresse(dest);
     }
 
+    /**
+     * funcao que adiciona ponto de interesse ao ArrayList
+     * @param pontoInteresse a adicionar
+     */
     public void addPontoInteresse (PontoInteresse pontoInteresse)
     {
         if (!this.pontoInteresses.contains(pontoInteresse))
@@ -167,6 +221,13 @@ public class GestorPontoInteresse implements Serializable
         }
     }
 
+    /**
+     * funcao que calcula caminho mais curto entre dois vertices
+     * @param source vertexId de origem
+     * @param dest vertexId de destino
+     * @param grafo que queremos usar
+     * @param custo pode ser tempo ou distancia (enumerado)
+     */
     public void caminhoMaisCurtoEntre (int source, int dest, EdgeWeightedDigraph grafo, int offset, CustoEnum custo)
     {
         custoEnum = custo;
@@ -183,6 +244,12 @@ public class GestorPontoInteresse implements Serializable
             StdOut.printf("%d to %d         no path\n", source + offset, dest + offset);
     }
 
+    /**
+     * funcao que retira pontos de interesse ao array
+     * @param pontosInteresse
+     * @param invalidosPontosInteresse que queremos remover
+     * @return arrayList atualizado
+     */
     public ArrayList<PontoInteresse> retiraPontosInteresse (ArrayList<PontoInteresse> pontosInteresse,
                                                             ArrayList<PontoInteresse> invalidosPontosInteresse)
     {
@@ -195,6 +262,12 @@ public class GestorPontoInteresse implements Serializable
         return piAux;
     }
 
+    /**
+     * funcao que retorna o ponto de interesse mais proximo de uma coordenada
+     * @param x variavel da coordenada
+     * @param y variavel da coordenada
+     * @return ponto de interesse mais próximo
+     */
     public PontoInteresse getPontoInteresseMaisProximo (int x, int y)
     {
         PontoInteresse qualquer = pontoInteresses.get(0);
@@ -211,6 +284,11 @@ public class GestorPontoInteresse implements Serializable
         return qualquer;
     }
 
+    /**
+     * funcao que verifica se o grafo está conectado
+     * @param g grafo
+     * @return sim em caso de verdade
+     */
     public boolean isConnected(EdgeWeightedDigraph g)
     {
         int s = 0;
