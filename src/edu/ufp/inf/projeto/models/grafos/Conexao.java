@@ -25,6 +25,7 @@ public class Conexao extends DirectedEdge
     }
 
 
+
     public double getPesoTempo() {
         return pesoTempo;
     }
@@ -37,6 +38,7 @@ public class Conexao extends DirectedEdge
     {
         return super.weight();
     }
+
 
     @Override
     public String toString() {

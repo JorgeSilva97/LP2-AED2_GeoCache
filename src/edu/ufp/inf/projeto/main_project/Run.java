@@ -4,8 +4,11 @@ import edu.princeton.cs.algs4.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.projeto.models.*;
+import edu.ufp.inf.projeto.models.enumerados.CustoEnum;
 import edu.ufp.inf.projeto.models.enumerados.TipoGeoCacheEnum;
+import edu.ufp.inf.projeto.models.grafos.Conexao;
 import edu.ufp.inf.projeto.models.grafos.GestorPontoInteresse;
+import edu.ufp.inf.projeto.models.grafos.SubGrafo;
 import edu.ufp.inf.projeto.models.utilizadores.AdminParticipante;
 import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
@@ -28,6 +31,9 @@ public class Run
     private static ArrayList<Objeto> objetos = new ArrayList<>();
     private static RedBlackBST<String, GeoCache> geoCaches = new RedBlackBST<>();
     private static RedBlackBST<String, Participante> participantes = new RedBlackBST<>();
+    private static GestorPontoInteresse gestorPontoInteresse = new GestorPontoInteresse(pontosInteresse);
+
+
 
     /**
      * Main function
@@ -40,7 +46,7 @@ public class Run
 
         String path = "src/edu/ufp/inf/projeto/ficheiros/InputComGrafos.txt";
 
-        loadFromFile(path);
+        /*loadFromFile(path);
         System.out.println("\tGEO CACHES");
         listGeoCache();
         System.out.println("\tPARTICIPANTES");
@@ -48,10 +54,58 @@ public class Run
         System.out.println("\tOBJETOS");
         listObjetos();
         System.out.println("\tPONTOS DE INTERESSE");
-        listPontosInteresse();
+        listPontosInteresse();*/
         //createFile(path_jorge_criar);
-        System.out.println(System.getProperty("user.dir"));
         //writeToFile(path_jorge);
+
+
+
+        PontoInteresse pi1 = new PontoInteresse(1, 3, 4, "porto");
+        GeoCache geoCache1 = new GeoCache( pi1, TipoGeoCacheEnum.BASIC);
+        PontoInteresse pi2 = new PontoInteresse(2, 4, 5, "portogarage");
+        GeoCache geoCache2 = new GeoCache(pi2, TipoGeoCacheEnum.BASIC);
+        PontoInteresse pi3 = new PontoInteresse(3, 5, 6, "portoalegre");
+        GeoCache geoCache3 = new GeoCache(pi3, TipoGeoCacheEnum.PREMIUM);
+        PontoInteresse pi4 = new PontoInteresse(4, 6, 7, "portoseguro");
+        GeoCache geoCache4 = new GeoCache(pi4, TipoGeoCacheEnum.PREMIUM);
+
+        pi1.setGeoCache(geoCache1);
+        pi2.setGeoCache(geoCache2);
+        pi3.setGeoCache(geoCache3);
+        pi4.setGeoCache(geoCache4);
+
+        gestorPontoInteresse.addPontoInteresse(geoCache1.getPontoInteresse());
+        gestorPontoInteresse.addPontoInteresse(geoCache2.getPontoInteresse());
+        gestorPontoInteresse.addPontoInteresse(geoCache3.getPontoInteresse());
+        gestorPontoInteresse.addPontoInteresse(geoCache4.getPontoInteresse());
+
+        gestorPontoInteresse.criaGrafoGlobal();
+
+        gestorPontoInteresse.createEdge(geoCache1.getPontoInteresse().getVertexId(),
+                geoCache2.getPontoInteresse().getVertexId(),
+                gestorPontoInteresse.calculaPeso(geoCache1.getPontoInteresse(),geoCache2.getPontoInteresse()), 30);
+        gestorPontoInteresse.createEdge(geoCache2.getPontoInteresse().getVertexId(),
+                geoCache1.getPontoInteresse().getVertexId(),
+                gestorPontoInteresse.calculaPeso(geoCache2.getPontoInteresse(),geoCache1.getPontoInteresse()), 20);
+        gestorPontoInteresse.createEdge(geoCache3.getPontoInteresse().getVertexId(),
+                geoCache4.getPontoInteresse().getVertexId(),
+                gestorPontoInteresse.calculaPeso(geoCache3.getPontoInteresse(),geoCache4.getPontoInteresse()), 20);
+        gestorPontoInteresse.createEdge(geoCache4.getPontoInteresse().getVertexId(),
+                geoCache3.getPontoInteresse().getVertexId(),
+                gestorPontoInteresse.calculaPeso(geoCache4.getPontoInteresse(),geoCache3.getPontoInteresse()), 20);
+
+
+        EdgeWeightedDigraph graph = gestorPontoInteresse.getGrafoGlobal();
+        System.out.println(graph.toString());
+      //  System.out.println("--->" + gestorPontoInteresse.getSubGrafoBasicCaches(pontosInteresse));
+       gestorPontoInteresse.getSubGrafoBasicCaches(pontosInteresse);
+       gestorPontoInteresse.caminhoMaisCurtoEntre(0,1, graph, 0, CustoEnum.DISTANCIA);
+
+
+
+
+
+
     }
 
     /**
@@ -101,7 +155,7 @@ public class Run
                 double coordenadaY = Double.parseDouble(y);
                 int numObjetos = Integer.parseInt(geoCachess[4].trim());
                 PontoInteresse pontoInteresse = new PontoInteresse(coordenadaX, coordenadaY, nomeRegiao, nomeG);
-                pontoInteresse.setVertexId(j+1);
+                pontoInteresse.setVertexId(j);
                 switch (tipoG.trim())
                 {
                     case "basic":
@@ -185,9 +239,12 @@ public class Run
                     {
                         GeoCache geoDois = geoCaches.get(gcDois);
                         if (geoDois.getPontoInteresse().getNome().compareTo(ligacaoDois)==0)
+                        {
                             gestorPontoInteresse.createEdge(geoUm.getPontoInteresse().getVertexId(),
                                     geoDois.getPontoInteresse().getVertexId(), distancia, tempo);
-
+                            gestorPontoInteresse.createEdge(geoDois.getPontoInteresse().getVertexId(),
+                                    geoUm.getPontoInteresse().getVertexId(), distancia, tempo);
+                        }
                     }
                 }
             }
@@ -218,7 +275,8 @@ public class Run
      * funcao que escreve para o ficheiro output toda a informacao guardada nas ST e Arrays
      * @param path, caminho do ficheiro output
      */
-    public static void writeToFile(String path){
+    public static void writeToFile(String path)
+    {
         try
         {
             FileWriter myWriter = new FileWriter(path);
@@ -244,7 +302,6 @@ public class Run
 
                 myWriter.write("\n");
             }
-
             myWriter.write(String.valueOf(Integer.valueOf(3)));
             myWriter.write("\n");
             ArrayList<PontoInteresse> norte = new ArrayList<>();
@@ -312,6 +369,25 @@ public class Run
                             ((TravelBug) objeto).getInicio().getPontoInteresse().getNome()+", "+
                                 ((TravelBug) objeto).getObjetivoFinal().getPontoInteresse().getNome()+"\n");
             }
+            int ultimoVertex = gestorPontoInteresse.getMaiorVertex(pontosInteresse);
+            myWriter.write(String.valueOf(Integer.valueOf(ultimoVertex))+"\n");
+            SubGrafo subGrafo = gestorPontoInteresse.getSubGrafoFromVertices(pontosInteresse);
+            for (int y=0; y<ultimoVertex; y++)
+            {
+                ArrayList<Conexao> conexoes = gestorPontoInteresse.getEdgesFrom(0, ultimoVertex);
+                for (Conexao conexao : conexoes)
+                {
+                    for (PontoInteresse pi1 : pontosInteresse)
+                    {
+                        for (PontoInteresse pi2 : pontosInteresse)
+                        {
+                            //if ()
+                        }
+
+                    }
+                }
+            }
+
             myWriter.close();
         }catch (IOException e)
         {

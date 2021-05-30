@@ -6,6 +6,7 @@ import edu.ufp.inf.projeto.models.utilizadores.Participante;
 import edu.ufp.inf.projeto.models.utilizadores.PremiumParticipante;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -45,6 +46,17 @@ public class GeoCache
         Date d = new Date();
         addLog("Adicionado GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
     }
+
+    public GeoCache(PontoInteresse pontoInteresse, TipoGeoCacheEnum tipoGeoCache)
+    {
+        this.pontoInteresse = pontoInteresse;
+        this.tipoGeoCache = tipoGeoCache;
+        Date d = new Date();
+        addLog("Adicionado GeoCache com sucesso!", new Timestamp(d.getTime()).toString());
+    }
+
+
+     
 
     /**
      * funcao que adiciona Objeto à ArrayList
@@ -172,6 +184,9 @@ public class GeoCache
         gc.editObjeto(o.getNome(),o);
         gc.removeObjeto(o);
         gc.getLogs();
+
+        String[] cona = {"telemovel", "bola"};
+        System.out.println(Arrays.stream(cona).count());
     }
 
 

@@ -41,7 +41,6 @@ public class SubGrafo implements Serializable
 
 
 
-
     public GestorPontoInteresse getGestorPontoInteresse() {
         return gestorPontoInteresse;
     }

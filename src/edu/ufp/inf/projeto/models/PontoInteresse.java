@@ -32,6 +32,13 @@ public class PontoInteresse implements Serializable
         this.nome = nome;
     }
 
+    public PontoInteresse(int vertexId, double x, double y, String nome) {
+        this.vertexId = vertexId;
+        this.x = x;
+        this.y = y;
+        this.nome = nome;
+    }
+
     public PontoInteresse() {
     }
 

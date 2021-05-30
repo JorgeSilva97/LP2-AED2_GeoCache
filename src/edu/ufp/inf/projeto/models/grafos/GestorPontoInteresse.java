@@ -72,6 +72,69 @@ public class GestorPontoInteresse implements Serializable
         return null;
     }
 
+    public SubGrafo getSubGrafoPremiumCaches (ArrayList<PontoInteresse> pontoInteresses)
+    {
+        if (!pontoInteresses.isEmpty())
+        {
+            int minIndex = pontoInteresses.get(0).getVertexId();
+            int maxIndex = pontoInteresses.get(0).getVertexId();
+            for (PontoInteresse pontoInteresse : pontoInteresses)
+            {
+                if (pontoInteresse.getGeoCache().getTipoGeoCache().ordinal() == 1)
+                {
+                    if (pontoInteresse.getVertexId() > maxIndex)
+                        maxIndex = pontoInteresse.getVertexId();
+                    if (pontoInteresse.getVertexId() < minIndex)
+                        minIndex = pontoInteresse.getVertexId();
+                }
+            }
+            ArrayList<Conexao> dEdges = this.getEdgesFrom(minIndex, maxIndex);
+            System.out.println("A retornar sub-grafo de Caches Premium");
+            return new SubGrafo(dEdges, minIndex, maxIndex, this);
+        }
+        return null;
+    }
+
+    public SubGrafo getSubGrafoBasicCaches (ArrayList<PontoInteresse> pontoInteresses)
+    {
+        if (!pontoInteresses.isEmpty())
+        {
+            int minIndex = pontoInteresses.get(0).getVertexId();
+            int maxIndex = pontoInteresses.get(0).getVertexId();
+            for (PontoInteresse pontoInteresse : pontoInteresses)
+            {
+                if (pontoInteresse.getGeoCache().getTipoGeoCache().ordinal() == 0)
+                {
+                    if (pontoInteresse.getVertexId() > maxIndex)
+                        maxIndex = pontoInteresse.getVertexId();
+                    if (pontoInteresse.getVertexId() < minIndex)
+                        minIndex = pontoInteresse.getVertexId();
+                }
+            }
+            ArrayList<Conexao> dEdges = this.getEdgesFrom(minIndex, maxIndex);
+            System.out.println("A retornar sub-grafo de Caches Basic");
+            return new SubGrafo(dEdges, minIndex, maxIndex, this);
+        }
+        return null;
+    }
+
+    public int getMaiorVertex(ArrayList<PontoInteresse> pontoInteresses)
+    {
+        if (!pontoInteresses.isEmpty())
+        {
+            int maxIndex = pontoInteresses.get(0).getVertexId();
+            for (PontoInteresse pontoInteresse : pontoInteresses);
+            for (PontoInteresse pontoInteresse : pontoInteresses)
+            {
+                if (pontoInteresse.getVertexId() > maxIndex)
+                    maxIndex = pontoInteresse.getVertexId();
+            }
+            return maxIndex;
+        }
+        return 0;
+
+    }
+
     public void printSubGrafo(ArrayList<DirectedEdge> subGarfo)
     {
         for (DirectedEdge directedEdge : subGarfo)
@@ -102,7 +165,6 @@ public class GestorPontoInteresse implements Serializable
             this.pontoInteresses.add(pontoInteresse);
             System.out.println("Ponto de Interesse adicionado com sucesso aos pontosInteresse");
         }
-        System.out.println("Ponto de Interesse já existe");
     }
 
     public void caminhoMaisCurtoEntre (int source, int dest, EdgeWeightedDigraph grafo, int offset, CustoEnum custo)
@@ -147,6 +209,22 @@ public class GestorPontoInteresse implements Serializable
             }
         }
         return qualquer;
+    }
+
+    public boolean isConnected(EdgeWeightedDigraph g)
+    {
+        int s = 0;
+        int flag = 0;
+        DijkstraSP sp = new DijkstraSP(g, s);
+        for (int t = 0; t < g.V(); t++)
+        {
+            if (!sp.hasPathTo(t))
+                flag = 1;
+
+        }
+        if (flag == 0)
+            return true;
+        return false;
     }
 
 
